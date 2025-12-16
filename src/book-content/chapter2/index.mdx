@@ -1,0 +1,387 @@
+---
+title: "Chapter 2: Nodes, Topics, and Services"
+description: "Master the fundamental communication primitives of ROS 2: nodes, topics, and services, and learn how to optimize their behavior with Quality of Service policies."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+// import { CodeBlockTabs } from '@site/src/components/CodeBlockTabs'; // Assuming a component like this for language tabs
+
+## Chapter 2: Nodes, Topics, and Services
+
+### 2.1 Objectives
+
+Upon completing this chapter, you will be able to:
+*   Create and implement ROS 2 publisher and subscriber nodes in Python.
+*   Define and utilize ROS 2 messages, including custom message types.
+*   Implement ROS 2 service clients and servers in Python for request/response communication.
+*   Apply Quality of Service (QoS) policies to topics and services to optimize communication for various scenarios.
+*   Understand and implement ROS 2 lifecycle nodes for predictable node startup, shutdown, and state management.
+
+### 2.2 Deep Dive into ROS 2 Nodes
+
+In Chapter 1, we introduced nodes as the fundamental computational units of ROS 2. A node is essentially an executable program that performs a specific task, such as reading from a sensor, performing a computation, or sending commands to an actuator. The power of ROS 2 lies in its distributed nature, where many independent nodes can run concurrently, potentially on different machines, and communicate seamlessly. In Python, a ROS 2 node is typically implemented as a class inheriting from `rclpy.node.Node`, providing access to ROS 2 functionalities like creating publishers, subscribers, service servers, and clients. Each node needs to be initialized with `rclpy.init()` and kept alive by `rclpy.spin()`.
+
+```python
+import rclpy
+from rclpy.node import Node
+
+class MyCustomNode(Node):
+    def __init__(self):
+        super().__init__('my_custom_node')
+        self.get_logger().info('My custom node has started!')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MyCustomNode()
+    rclpy.spin(node) # Keeps the node alive and processing callbacks
+    node.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Code Example 2.1**: A minimal ROS 2 Python node.
+
+### 2.3 Publish/Subscribe Communication: Topics
+
+Topics are the backbone of ROS 2's asynchronous, many-to-many communication. They act as named buses over which nodes can send (publish) and receive (subscribe) messages. This decoupled architecture allows nodes to operate independently without needing direct knowledge of other nodes. Messages are structured data types, defined in `.msg` files, which `ros2` tools translate into code for various languages.
+
+#### 2.3.1 Publishers
+
+A publisher node sends messages to a topic at a regular interval or based on an event.
+
+```python
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String # Standard string message type
+
+class MinimalPublisher(Node):
+    def __init__(self):
+        super().__init__('minimal_publisher')
+        self.publisher_ = self.create_publisher(String, 'chatter', 10) # Topic: 'chatter', QoS depth: 10
+        self.i = 0
+        self.timer = self.create_timer(0.5, self.timer_callback) # Publish every 0.5 seconds
+        self.get_logger().info('Minimal Publisher node running.')
+
+    def timer_callback(self):
+        msg = String()
+        msg.data = f'Hello from ROS 2: {self.i}'
+        self.publisher_.publish(msg)
+        self.get_logger().info(f'Publishing: "{msg.data}"')
+        self.i += 1
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_publisher = MinimalPublisher()
+    rclpy.spin(minimal_publisher)
+    minimal_publisher.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Code Example 2.2**: A Python publisher node sending string messages.
+
+#### 2.3.2 Subscribers
+
+A subscriber node listens to a topic and processes incoming messages.
+
+```python
+import rclpy
+from rclpy.node import Node
+from std_msgs.msg import String
+
+class MinimalSubscriber(Node):
+    def __init__(self):
+        super().__init__('minimal_subscriber')
+        self.subscription = self.create_subscription(
+            String,
+            'chatter',
+            self.listener_callback,
+            10) # Topic: 'chatter', QoS depth: 10
+        self.subscription # prevent unused variable warning
+        self.get_logger().info('Minimal Subscriber node running.')
+
+    def listener_callback(self, msg):
+        self.get_logger().info(f'I heard: "{msg.data}"')
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_subscriber = MinimalSubscriber()
+    rclpy.spin(minimal_subscriber)
+    minimal_subscriber.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Code Example 2.3**: A Python subscriber node receiving string messages.
+
+### 2.4 Synchronous Communication: Services
+
+While topics are excellent for streaming data, sometimes a node needs to request a specific computation or action from another node and wait for a direct response. This is where **Services** come in. Services provide a synchronous request/response communication pattern, ideal for functionalities like querying robot state, triggering discrete actions, or performing calculations that return an immediate result.
+
+#### 2.4.1 Service Server
+
+A service server node implements the logic to handle incoming requests and send back a response.
+
+```python
+import rclpy
+from rclpy.node import Node
+from example_interfaces.srv import AddTwoInts # Assuming this service message is available
+
+class MinimalService(Node):
+    def __init__(self):
+        super().__init__('minimal_service')
+        self.srv = self.create_service(AddTwoInts, 'add_two_ints', self.add_two_ints_callback)
+        self.get_logger().info('Service server for "add_two_ints" started.')
+
+    def add_two_ints_callback(self, request, response):
+        response.sum = request.a + request.b
+        self.get_logger().info(f'Incoming request: a={request.a}, b={request.b}. Sending response: {response.sum}')
+        return response
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_service = MinimalService()
+    rclpy.spin(minimal_service)
+    minimal_service.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Code Example 2.4**: A Python service server for adding two integers.
+
+#### 2.4.2 Service Client
+
+A service client node sends a request to a service server and blocks (or awaits asynchronously) until it receives a response.
+
+```python
+import rclpy
+from rclpy.node import Node
+from example_interfaces.srv import AddTwoInts
+import sys
+
+class MinimalClient(Node):
+    def __init__(self):
+        super().__init__('minimal_client')
+        self.cli = self.create_client(AddTwoInts, 'add_two_ints')
+        while not self.cli.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('Service not available, waiting...')
+        self.req = AddTwoInts.Request()
+        self.get_logger().info('Service client ready to send requests.')
+
+    def send_request(self, a, b):
+        self.req.a = a
+        self.req.b = b
+        self.future = self.cli.call_async(self.req)
+        self.get_logger().info(f'Requesting: a={a}, b={b}')
+        return self.future
+
+def main(args=None):
+    rclpy.init(args=args)
+    minimal_client = MinimalClient()
+    if len(sys.argv) < 3:
+        minimal_client.get_logger().info('Usage: ros2 run <pkg_name> minimal_client <a> <b>')
+        minimal_client.destroy_node()
+        rclpy.shutdown()
+        return
+
+    a = int(sys.argv[1])
+    b = int(sys.argv[2])
+    future = minimal_client.send_request(a, b)
+
+    rclpy.spin_until_future_complete(minimal_client, future)
+
+    if future.result() is not None:
+        minimal_client.get_logger().info(f'Result of add_two_ints: {future.result().sum}')
+    else:
+        minimal_client.get_logger().error(f'Service call failed: {future.exception()}')
+
+    minimal_client.destroy_node()
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Code Example 2.5**: A Python service client calling the `add_two_ints` service.
+
+### 2.5 Quality of Service (QoS) Policies
+
+One of the most powerful features of ROS 2, inherited from DDS, is the ability to configure Quality of Service (QoS) policies for communication. QoS allows developers to specify requirements for reliability, data persistence, and latency for each topic or service, optimizing behavior for different types of data. For instance, critical control commands might demand maximum reliability, while high-bandwidth camera feeds might prioritize speed over guaranteeing every single frame.
+
+Key QoS policies include:
+*   **Reliability**: `Reliable` (guaranteed delivery, with retries) vs. `Best Effort` (data may be lost, higher speed).
+*   **Durability**: `Transient Local` (publishers retain messages for late-joining subscribers) vs. `Volatile` (no retention).
+*   **History**: `Keep Last` (only store the N most recent messages) vs. `Keep All` (store all messages up to a limit).
+*   **Liveliness**: How ROS 2 detects if a publisher is still active.
+
+**Practical Considerations for Humanoid Robotics**: When designing communication for humanoid robots, understanding data rates and QoS is crucial. For example, joint state data, which might be published at **~100Hz**, often requires `Reliable` QoS to ensure precise control. Conversely, camera images from a humanoid's "eyes", which could be streamed at **~30Hz** with potentially large data sizes, might use `Best Effort` to prioritize real-time visual feedback over perfect frame delivery, especially if occasional frame drops are acceptable.
+
+```python
+from rclpy.qos import QoSProfile, ReliabilityPolicy, DurabilityPolicy, HistoryPolicy
+
+# Example QoS Profile for reliable control commands
+qos_reliable_cmd = QoSProfile(
+    reliability=ReliabilityPolicy.RELIABLE,
+    durability=DurabilityPolicy.VOLATILE, # Or TRANSIENT_LOCAL if last command needs to persist
+    history=HistoryPolicy.KEEP_LAST,
+    depth=10
+)
+
+# Example QoS Profile for best-effort sensor data (e.g., camera images)
+qos_best_effort_sensor = QoSProfile(
+    reliability=ReliabilityPolicy.BEST_EFFORT,
+    durability=DurabilityPolicy.VOLATILE,
+    history=HistoryPolicy.KEEP_LAST,
+    depth=1
+)
+
+# Usage when creating a publisher/subscriber:
+# self.publisher_ = self.create_publisher(YourMsgType, 'your_topic', qos_reliable_cmd)
+```
+*   **Code Example 2.6**: Defining different QoS profiles in Python.
+
+<HardwareTrackCallout track="Track A (Isaac Sim)">
+In Isaac Sim, fine-tuning QoS can help manage network traffic between the simulator and external control nodes, especially when dealing with high-fidelity sensor data or numerous simulated robots.
+</HardwareTrackCallout>
+
+### 2.6 Lifecycle Nodes: Managing Node States
+
+For robust and predictable robotic systems, especially those deployed on physical hardware, nodes need to manage their operational states gracefully. **Lifecycle Nodes** provide a state machine for ROS 2 nodes, allowing them to transition through well-defined states (Unconfigured, Inactive, Active, Shutdown) and execute specific callbacks during these transitions. This enables system designers to orchestrate complex startup sequences, perform checks before activation, and ensure graceful shutdown, which is vital for safety and reliability in humanoid robotics.
+
+#### Lifecycle Node States
+*   **Unconfigured**: The initial state. The node can be configured.
+*   **Inactive**: Configured but not processing data. Ready to become active.
+*   **Active**: Fully operational, processing data and executing its main logic.
+*   **Finalized**: Node has been shut down and cannot be reactivated.
+
+Each state transition can trigger specific callbacks (e.g., `on_configure`, `on_activate`, `on_deactivate`, `on_cleanup`) where you can implement resource allocation, device initialization, or safety checks.
+
+```python
+import rclpy
+from rclpy.node import Node
+from rclpy.lifecycle import Node as LifecycleNode, State, TransitionCallbackReturn
+from std_msgs.msg import String
+
+class MyLifecycleNode(LifecycleNode):
+    def __init__(self, node_name):
+        super().__init__(node_name)
+        self.publisher_ = None
+        self.timer_ = None
+        self.get_logger().info(f"{node_name} created.")
+
+    def on_configure(self, state: State) -> TransitionCallbackReturn:
+        self.get_logger().info("on_configure() is called.")
+        self.publisher_ = self.create_publisher(String, 'lifecycle_topic', 10)
+        self.get_logger().info("Publisher created.")
+        return TransitionCallbackReturn.SUCCESS
+
+    def on_activate(self, state: State) -> TransitionCallbackReturn:
+        self.get_logger().info("on_activate() is called.")
+        self.timer_ = self.create_timer(1.0, self.publish_message)
+        self.get_logger().info("Timer created and node is active.")
+        # Call the base class method to change state
+        return super().on_activate(state)
+
+    def on_deactivate(self, state: State) -> TransitionCallbackReturn:
+        self.get_logger().info("on_deactivate() is called.")
+        self.destroy_timer(self.timer_)
+        self.get_logger().info("Timer destroyed.")
+        # Call the base class method to change state
+        return super().on_deactivate(state)
+
+    def on_cleanup(self, state: State) -> TransitionCallbackReturn:
+        self.get_logger().info("on_cleanup() is called.")
+        self.destroy_publisher(self.publisher_)
+        self.get_logger().info("Publisher destroyed.")
+        return TransitionCallbackReturn.SUCCESS
+
+    def on_shutdown(self, state: State) -> TransitionCallbackReturn:
+        self.get_logger().info("on_shutdown() is called.")
+        return TransitionCallbackReturn.SUCCESS
+
+    def publish_message(self):
+        msg = String()
+        msg.data = "Hello from Lifecycle Node!"
+        if self.publisher_ is not None:
+            self.publisher_.publish(msg)
+            self.get_logger().info(f'Publishing: "{msg.data}"')
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = MyLifecycleNode('my_lifecycle_node')
+    rclpy.spin(node)
+    # At this point, the node is likely Finalized, but good practice to destroy
+    # node.destroy_node() # This may not be reachable if spin blocks indefinitely
+    rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+*   **Worked Example 2.1**: Implementing a simple ROS 2 Lifecycle Node.
+
+<HardwareTrackCallout track="Track B (Jetson/Unitree)">
+For physical humanoid robots like Unitree H1 or those powered by Jetson, lifecycle nodes are essential for safely managing critical components (e.g., motor controllers, high-power sensors).
+</HardwareTrackCallout>
+
+### 2.7 Error Handling and Best Practices
+
+Robust robotics applications demand careful attention to error handling. In ROS 2, this involves anticipating failures in communication, sensor readings, or actuator commands. Best practices include:
+*   **Logging**: Use `self.get_logger().info()`, `warn()`, `error()`, `fatal()` for informative messages.
+*   **Exception Handling**: Wrap potentially failing operations (e.g., service calls, external API interactions) in `try-except` blocks.
+*   **Communication Checks**: Verify that publishers have subscribers (`self.count_publishers()`) or services are available (`wait_for_service()`) before attempting to communicate.
+*   **Parameter Validation**: Validate node parameters at startup.
+*   **Graceful Shutdown**: Implement logic in lifecycle node callbacks (`on_deactivate`, `on_cleanup`) to release resources cleanly.
+*   **Timeouts**: Implement timeouts for blocking operations like service calls to prevent deadlocks.
+
+### 2.8 Summary & Key Takeaways
+
+In this chapter, you've gained a deep understanding of ROS 2's core communication primitives. You've learned to build nodes that publish and subscribe to topics for asynchronous data streams, and implemented service clients and servers for synchronous request/response interactions. A crucial aspect covered was Quality of Service (QoS) policies, which empower you to fine-tune communication for the specific needs of robotic applications, from reliable control to best-effort sensor data. Finally, the concept of lifecycle nodes provides a framework for creating more robust and predictable robot behaviors through managed state transitions. These tools form the foundation for building any complex ROS 2 application, especially for the intricate demands of humanoid robotics.
+
+### 2.9 Quiz & Exercises
+
+#### Multiple Choice Questions
+
+1.  **Which communication primitive in ROS 2 is best suited for streaming continuous data, such as sensor readings from a camera or IMU?**
+    a) Services
+    b) Actions
+    c) Topics
+    d) Parameters
+
+2.  **What is the purpose of a ROS 2 Service?**
+    a) To send periodic updates to multiple listeners.
+    b) To handle long-running, goal-oriented tasks with feedback.
+    c) To provide a synchronous request/response mechanism between nodes.
+    d) To store configuration data for nodes.
+
+3.  **Which QoS policy ensures that messages are guaranteed to be delivered, even if it means retransmissions?**
+    a) Best Effort
+    b) Volatile
+    c) Reliable
+    d) Keep Last
+
+4.  **In `rclpy`, which class would your node typically inherit from to implement a ROS 2 node?**
+    a) `rclpy.Publisher`
+    b) `rclpy.Subscriber`
+    c) `rclpy.node.Node`
+    d) `rclpy.qos.QoSProfile`
+
+5.  **What is the primary benefit of using ROS 2 Lifecycle Nodes?**
+    a) To enable faster message transmission.
+    b) To provide a predictable state machine for node management, enhancing robustness.
+    c) To simplify custom message definition.
+    d) To automatically re-route messages around network failures.
+
+#### Open-ended Question
+
+1.  Describe a scenario in humanoid robotics where you would choose to use a ROS 2 Service over a Topic, and another scenario where a Topic would be more appropriate than a Service. Justify your choices by explaining the fundamental differences in their communication patterns.
+
+### 2.10 References
+
+*   ROS 2 Documentation. (n.d.-a). *rclpy - ROS 2 Documentation*. Retrieved from [https://docs.ros.org/en/humble/Introspection/Tools/Topic-Tools/rclpy.html](https://docs.ros.org/en/humble/Introspection/Tools/Topic-Tools/rclpy.html)
+*   ROS 2 Documentation. (n.d.-b). *About Quality of Service Settings*. Retrieved from [https://docs.ros.org/en/humble/Concepts/About-Quality-of-Service-Settings.html](https://docs.ros.org/en/humble/Concepts/About-Quality-of-Service-Settings.html)
+*   ROS 2 Documentation. (n.d.-c). *About Lifecycle Nodes*. Retrieved from [https://docs.ros.org/en/humble/Concepts/About-Lifecycle-Nodes.html](https://docs.ros.org/en/humble/Concepts/About-Lifecycle-Nodes.html)
+*   ROS 2 Documentation. (n.d.-d). *Writing a Simple Publisher and Subscriber (Python)*. Retrieved from [https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Publisher-And-Subscriber-Py.html](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Publisher-And-Subscriber-Py.html)
+*   ROS 2 Documentation. (n.d.-e). *Writing a Simple Service and Client (Python)*. Retrieved from [https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Service-And-Client-Py.html](https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Writing-A-Simple-Service-And-Client-Py.html)

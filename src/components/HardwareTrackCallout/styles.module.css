@@ -1,0 +1,37 @@
+.calloutContainer {
+  border-left: 5px solid;
+  padding: 10px 15px;
+  margin: 15px 0;
+  border-radius: 5px;
+  background-color: var(--ifm-code-background);
+  box-shadow: var(--ifm-global-shadow-lw);
+}
+
+.trackLabel {
+  font-weight: bold;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  color: var(--ifm-font-color-base);
+}
+
+.content {
+  font-size: 0.95em;
+  color: var(--ifm-font-color-base);
+}
+
+/* Specific track colors */
+.isaacSim {
+  border-left-color: #f79620; /* Orange */
+}
+
+.jetsonUnitree {
+  border-left-color: #2096f7; /* Blue */
+}
+
+.cloudCpu {
+  border-left-color: #9620f7; /* Purple */
+}
+
+.default {
+  border-left-color: var(--ifm-color-secondary-dark); /* Docusaurus default secondary color */
+}
