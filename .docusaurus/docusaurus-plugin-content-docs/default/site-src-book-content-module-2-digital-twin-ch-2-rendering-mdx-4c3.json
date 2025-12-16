@@ -1,0 +1,25 @@
+{
+  "id": "module2-digital-twin/ch2-rendering",
+  "title": "Chapter 2: Rendering in Digital Twins",
+  "description": "1. Epic Overview",
+  "source": "@site/src/book-content/module2-digital-twin/ch2-rendering.mdx",
+  "sourceDirName": "module2-digital-twin",
+  "slug": "/module2-digital-twin/ch2-rendering",
+  "permalink": "/docs/module2-digital-twin/ch2-rendering",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Chapter 2: Rendering in Digital Twins"
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 1: Physics in Digital Twins",
+    "permalink": "/docs/module2-digital-twin/ch1-physics"
+  },
+  "next": {
+    "title": "Chapter 3: Sensors in Digital Twins",
+    "permalink": "/docs/module2-digital-twin/ch3-sensors"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "chapter1/index",
+  "title": "Chapter 1: Introduction to ROS 2 Middleware",
+  "description": "Explore the foundational concepts of ROS 2, its architecture, installation, and why it's the nervous system for physical AI and humanoid robotics.",
+  "source": "@site/src/book-content/chapter1/index.mdx",
+  "sourceDirName": "chapter1",
+  "slug": "/chapter1/",
+  "permalink": "/docs/chapter1/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Chapter 1: Introduction to ROS 2 Middleware",
+    "description": "Explore the foundational concepts of ROS 2, its architecture, installation, and why it's the nervous system for physical AI and humanoid robotics."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 1: Getting Started",
+    "permalink": "/docs/category/chapter-1-getting-started"
+  },
+  "next": {
+    "title": "Chapter 2: Core Concepts",
+    "permalink": "/docs/category/chapter-2-core-concepts"
+  }
+}

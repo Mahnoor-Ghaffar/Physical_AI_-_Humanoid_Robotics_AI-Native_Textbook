@@ -1,0 +1,26 @@
+{
+  "id": "chapter2/index",
+  "title": "Chapter 2: Nodes, Topics, and Services",
+  "description": "Master the fundamental communication primitives of ROS 2: nodes, topics, and services, and learn how to optimize their behavior with Quality of Service policies.",
+  "source": "@site/src/book-content/chapter2/index.mdx",
+  "sourceDirName": "chapter2",
+  "slug": "/chapter2/",
+  "permalink": "/docs/chapter2/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Chapter 2: Nodes, Topics, and Services",
+    "description": "Master the fundamental communication primitives of ROS 2: nodes, topics, and services, and learn how to optimize their behavior with Quality of Service policies."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 2: Core Concepts",
+    "permalink": "/docs/category/chapter-2-core-concepts"
+  },
+  "next": {
+    "title": "Chapter 3: Advanced Topics",
+    "permalink": "/docs/category/chapter-3-advanced-topics"
+  }
+}

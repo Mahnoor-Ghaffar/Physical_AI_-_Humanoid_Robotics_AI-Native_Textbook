@@ -1,0 +1,92 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "chapter1/index",
+          "docs": [
+            {
+              "id": "chapter1/index",
+              "path": "/docs/chapter1/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "chapter2/index",
+              "path": "/docs/chapter2/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "chapter3/index",
+              "path": "/docs/chapter3/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "chapter4/index",
+              "path": "/docs/chapter4/",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intro",
+              "path": "/docs/intro"
+            },
+            {
+              "id": "module2-digital-twin/ch1-physics",
+              "path": "/docs/module2-digital-twin/ch1-physics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch2-rendering",
+              "path": "/docs/module2-digital-twin/ch2-rendering",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module2-digital-twin/ch3-sensors",
+              "path": "/docs/module2-digital-twin/ch3-sensors",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/chapter-1-getting-started",
+              "path": "/docs/category/chapter-1-getting-started",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/chapter-2-core-concepts",
+              "path": "/docs/category/chapter-2-core-concepts",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/chapter-3-advanced-topics",
+              "path": "/docs/category/chapter-3-advanced-topics",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/chapter-4-the-ai-native-mindset",
+              "path": "/docs/category/chapter-4-the-ai-native-mindset",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/module-2-digital-twin",
+              "path": "/docs/category/module-2-digital-twin",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/docs/category/chapter-1-getting-started",
+                "label": "Chapter 1: Getting Started"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

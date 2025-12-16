@@ -1,0 +1,26 @@
+{
+  "id": "chapter4/index",
+  "title": "Chapter 4: Modeling Humanoids with URDF",
+  "description": "Master the art of describing robot kinematics, visual properties, and collision geometries using URDF and Xacro for simulation and control of humanoid robots.",
+  "source": "@site/src/book-content/chapter4/index.mdx",
+  "sourceDirName": "chapter4",
+  "slug": "/chapter4/",
+  "permalink": "/docs/chapter4/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Chapter 4: Modeling Humanoids with URDF",
+    "description": "Master the art of describing robot kinematics, visual properties, and collision geometries using URDF and Xacro for simulation and control of humanoid robots."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Chapter 4: The AI-Native Mindset",
+    "permalink": "/docs/category/chapter-4-the-ai-native-mindset"
+  },
+  "next": {
+    "title": "Module 2: Digital Twin",
+    "permalink": "/docs/category/module-2-digital-twin"
+  }
+}
