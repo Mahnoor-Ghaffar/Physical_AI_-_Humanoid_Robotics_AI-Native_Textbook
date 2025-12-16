@@ -7,8 +7,10 @@ export default {
   "title": "Physical AI & Humanoid Robotics Textbook",
   "tagline": "A comprehensive guide generated and evolved with AI assistance.",
   "favicon": "img/favicon.ico",
-  "url": "http://localhost:3000",
-  "baseUrl": "/",
+  "url": "https://Mahnoor-Ghaffar.github.io",
+  "baseUrl": "/ai-native-book/",
+  "organizationName": "Mahnoor-Ghaffar",
+  "projectName": "ai-native-book",
   "onBrokenLinks": "throw",
   "onBrokenAnchors": "warn",
   "onDuplicateRoutes": "warn",
@@ -27,19 +29,6 @@ export default {
         "docs": {
           "path": "src/book-content",
           "sidebarPath": "./sidebars.ts"
-        },
-        "blog": {
-          "showReadingTime": true,
-          "feedOptions": {
-            "type": [
-              "rss",
-              "atom"
-            ],
-            "xslt": true
-          },
-          "onInlineTags": "warn",
-          "onInlineAuthors": "warn",
-          "onUntruncatedBlogPosts": "warn"
         },
         "theme": {
           "customCss": "./src/css/custom.css"
@@ -66,11 +55,6 @@ export default {
           "sidebarId": "tutorialSidebar",
           "position": "left",
           "label": "Book"
-        },
-        {
-          "to": "/blog",
-          "label": "Blog",
-          "position": "left"
         }
       ],
       "hideOnScroll": false
@@ -358,15 +342,15 @@ export default {
         "autoCollapseCategories": false
       }
     },
-    "blog": {
-      "sidebar": {
-        "groupByYear": true
-      }
-    },
     "metadata": [],
     "tableOfContents": {
       "minHeadingLevel": 2,
       "maxHeadingLevel": 3
+    },
+    "blog": {
+      "sidebar": {
+        "groupByYear": true
+      }
     }
   },
   "baseUrlIssueBanner": true,

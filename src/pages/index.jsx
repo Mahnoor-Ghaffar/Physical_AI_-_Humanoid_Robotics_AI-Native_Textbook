@@ -85,7 +85,7 @@ const CoreTopicsSection = () => {
           {topic: 'Sensor Fusion', link: '/docs/chapter1'},
           {topic: 'Control Systems', link: '/docs/chapter2'},
           {topic: 'Humanoid Control', link: '/docs/chapter3'},
-          {topic: 'Simulation & Digital Twins', link: '/docs/module2-digital-twin'},
+          {topic: 'Simulation & Digital Twins', link: '/docs/category/module-2-digital-twin'},
         ].map((item, i) => (
           <Link to={item.link} key={item.topic}>
             <motion.div

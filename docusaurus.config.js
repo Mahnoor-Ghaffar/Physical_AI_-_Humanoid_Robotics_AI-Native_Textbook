@@ -6,8 +6,11 @@ const config = {
   tagline: 'A comprehensive guide generated and evolved with AI assistance.',
   favicon: 'img/favicon.ico',
 
-  url: 'http://localhost:3000',
-  baseUrl: '/',
+  url: 'https://Mahnoor-Ghaffar.github.io',
+  baseUrl: '/ai-native-book/',
+  organizationName: 'Mahnoor-Ghaffar', // Usually your GitHub org/user name.
+  projectName: 'ai-native-book', // Usually your repo name.
+
 
   onBrokenLinks: 'throw',
   onBrokenAnchors: 'warn',
@@ -27,16 +30,7 @@ const config = {
           path: 'src/book-content',
           sidebarPath: './sidebars.ts',
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -66,7 +60,7 @@ const config = {
             position: 'left',
             label: 'Book',
           },
-          { to: '/blog', label: 'Blog', position: 'left' },
+
         ],
       },
       footer: {
@@ -283,11 +277,7 @@ const config = {
           autoCollapseCategories: false,
         },
       },
-      blog: {
-        sidebar: {
-          groupByYear: true,
-        },
-      },
+
       metadata: [],
       tableOfContents: {
         minHeadingLevel: 2,

@@ -5,7 +5,7 @@
   "source": "@site/src/book-content/chapter4/index.mdx",
   "sourceDirName": "chapter4",
   "slug": "/chapter4/",
-  "permalink": "/docs/chapter4/",
+  "permalink": "/ai-native-book/docs/chapter4/",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -17,10 +17,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Chapter 4: The AI-Native Mindset",
-    "permalink": "/docs/category/chapter-4-the-ai-native-mindset"
+    "permalink": "/ai-native-book/docs/category/chapter-4-the-ai-native-mindset"
   },
   "next": {
     "title": "Module 2: Digital Twin",
-    "permalink": "/docs/category/module-2-digital-twin"
+    "permalink": "/ai-native-book/docs/category/module-2-digital-twin"
   }
 }
