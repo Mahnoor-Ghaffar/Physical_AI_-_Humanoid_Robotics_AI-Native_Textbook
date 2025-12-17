@@ -3,6 +3,41 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
+    path: '/ai-native-book/__docusaurus/debug',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug', 'bf0'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/config',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/config', '587'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/content',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/content', '318'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/globalData',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/globalData', '757'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/metadata',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/metadata', 'f6e'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/registry',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/registry', 'e58'),
+    exact: true
+  },
+  {
+    path: '/ai-native-book/__docusaurus/debug/routes',
+    component: ComponentCreator('/ai-native-book/__docusaurus/debug/routes', 'adc'),
+    exact: true
+  },
+  {
     path: '/ai-native-book/docs',
     component: ComponentCreator('/ai-native-book/docs', 'a84'),
     routes: [

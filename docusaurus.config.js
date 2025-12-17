@@ -7,7 +7,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   url: 'https://Mahnoor-Ghaffar.github.io',
-  baseUrl: '/ai-native-book/',
+  baseUrl: '/',
   organizationName: 'Mahnoor-Ghaffar', // Usually your GitHub org/user name.
   projectName: 'ai-native-book', // Usually your repo name.
 
@@ -27,8 +27,9 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          path: 'src/book-content',
-          sidebarPath: './sidebars.ts',
+        path: 'src/book-content',
+        routeBasePath: '/',   // 🔥 important
+        sidebarPath: './sidebars.ts',
         },
 
         theme: {
