@@ -1,0 +1,1 @@
+I have fixed the broken links in the `docusaurus.config.js` file. The issue was that the footer links were pointing to `/docs/intro` instead of `/intro`. I have also reviewed the `sidebars.ts` and the files in `src/book-content/` and I have not found any other broken links. I believe the issue is resolved.

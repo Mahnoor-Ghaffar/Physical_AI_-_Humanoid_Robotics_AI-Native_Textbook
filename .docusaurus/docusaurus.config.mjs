@@ -8,7 +8,7 @@ export default {
   "tagline": "A comprehensive guide generated and evolved with AI assistance.",
   "favicon": "img/favicon.ico",
   "url": "https://Mahnoor-Ghaffar.github.io",
-  "baseUrl": "/ai-native-book/",
+  "baseUrl": "/",
   "organizationName": "Mahnoor-Ghaffar",
   "projectName": "ai-native-book",
   "onBrokenLinks": "throw",
@@ -28,6 +28,7 @@ export default {
       {
         "docs": {
           "path": "src/book-content",
+          "routeBasePath": "/",
           "sidebarPath": "./sidebars.ts"
         },
         "theme": {
@@ -67,7 +68,7 @@ export default {
           "items": [
             {
               "label": "Book",
-              "to": "/docs/intro"
+              "to": "/intro"
             }
           ]
         }

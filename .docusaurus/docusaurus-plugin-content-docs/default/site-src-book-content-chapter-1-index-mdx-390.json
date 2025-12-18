@@ -5,7 +5,7 @@
   "source": "@site/src/book-content/chapter1/index.mdx",
   "sourceDirName": "chapter1",
   "slug": "/chapter1/",
-  "permalink": "/ai-native-book/docs/chapter1/",
+  "permalink": "/chapter1/",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -17,10 +17,10 @@
   "sidebar": "tutorialSidebar",
   "previous": {
     "title": "Chapter 1: Getting Started",
-    "permalink": "/ai-native-book/docs/category/chapter-1-getting-started"
+    "permalink": "/category/chapter-1-getting-started"
   },
   "next": {
     "title": "Chapter 2: Core Concepts",
-    "permalink": "/ai-native-book/docs/category/chapter-2-core-concepts"
+    "permalink": "/category/chapter-2-core-concepts"
   }
 }

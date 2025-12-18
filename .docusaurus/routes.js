@@ -3,126 +3,96 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/ai-native-book/__docusaurus/debug',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug', 'bf0'),
+    path: '/',
+    component: ComponentCreator('/', '070'),
     exact: true
   },
   {
-    path: '/ai-native-book/__docusaurus/debug/config',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/config', '587'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/__docusaurus/debug/content',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/content', '318'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/__docusaurus/debug/globalData',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/globalData', '757'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/__docusaurus/debug/metadata',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/metadata', 'f6e'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/__docusaurus/debug/registry',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/registry', 'e58'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/__docusaurus/debug/routes',
-    component: ComponentCreator('/ai-native-book/__docusaurus/debug/routes', 'adc'),
-    exact: true
-  },
-  {
-    path: '/ai-native-book/docs',
-    component: ComponentCreator('/ai-native-book/docs', 'a84'),
+    path: '/',
+    component: ComponentCreator('/', '47d'),
     routes: [
       {
-        path: '/ai-native-book/docs',
-        component: ComponentCreator('/ai-native-book/docs', '804'),
+        path: '/',
+        component: ComponentCreator('/', 'eee'),
         routes: [
           {
-            path: '/ai-native-book/docs',
-            component: ComponentCreator('/ai-native-book/docs', 'e33'),
+            path: '/',
+            component: ComponentCreator('/', '0d9'),
             routes: [
               {
-                path: '/ai-native-book/docs/category/chapter-1-getting-started',
-                component: ComponentCreator('/ai-native-book/docs/category/chapter-1-getting-started', '1dc'),
+                path: '/category/chapter-1-getting-started',
+                component: ComponentCreator('/category/chapter-1-getting-started', '665'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/category/chapter-2-core-concepts',
-                component: ComponentCreator('/ai-native-book/docs/category/chapter-2-core-concepts', '127'),
+                path: '/category/chapter-2-core-concepts',
+                component: ComponentCreator('/category/chapter-2-core-concepts', '533'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/category/chapter-3-advanced-topics',
-                component: ComponentCreator('/ai-native-book/docs/category/chapter-3-advanced-topics', 'dc0'),
+                path: '/category/chapter-3-advanced-topics',
+                component: ComponentCreator('/category/chapter-3-advanced-topics', '5f2'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/category/chapter-4-the-ai-native-mindset',
-                component: ComponentCreator('/ai-native-book/docs/category/chapter-4-the-ai-native-mindset', 'b4e'),
+                path: '/category/chapter-4-the-ai-native-mindset',
+                component: ComponentCreator('/category/chapter-4-the-ai-native-mindset', '606'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/category/module-2-digital-twin',
-                component: ComponentCreator('/ai-native-book/docs/category/module-2-digital-twin', '162'),
+                path: '/category/module-2-digital-twin',
+                component: ComponentCreator('/category/module-2-digital-twin', '398'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/chapter1/',
-                component: ComponentCreator('/ai-native-book/docs/chapter1/', 'e5b'),
+                path: '/chapter1/',
+                component: ComponentCreator('/chapter1/', '382'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/chapter2/',
-                component: ComponentCreator('/ai-native-book/docs/chapter2/', '8cb'),
+                path: '/chapter2/',
+                component: ComponentCreator('/chapter2/', '74e'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/chapter3/',
-                component: ComponentCreator('/ai-native-book/docs/chapter3/', 'c1a'),
+                path: '/chapter3/',
+                component: ComponentCreator('/chapter3/', 'c06'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/chapter4/',
-                component: ComponentCreator('/ai-native-book/docs/chapter4/', '075'),
+                path: '/chapter4/',
+                component: ComponentCreator('/chapter4/', '94d'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/intro',
-                component: ComponentCreator('/ai-native-book/docs/intro', 'e31'),
+                path: '/intro',
+                component: ComponentCreator('/intro', 'c96'),
                 exact: true
               },
               {
-                path: '/ai-native-book/docs/module2-digital-twin/ch1-physics',
-                component: ComponentCreator('/ai-native-book/docs/module2-digital-twin/ch1-physics', '57a'),
+                path: '/module2-digital-twin/ch1-physics',
+                component: ComponentCreator('/module2-digital-twin/ch1-physics', '739'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/module2-digital-twin/ch2-rendering',
-                component: ComponentCreator('/ai-native-book/docs/module2-digital-twin/ch2-rendering', 'd6b'),
+                path: '/module2-digital-twin/ch2-rendering',
+                component: ComponentCreator('/module2-digital-twin/ch2-rendering', '4f8'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               },
               {
-                path: '/ai-native-book/docs/module2-digital-twin/ch3-sensors',
-                component: ComponentCreator('/ai-native-book/docs/module2-digital-twin/ch3-sensors', 'cd9'),
+                path: '/module2-digital-twin/ch3-sensors',
+                component: ComponentCreator('/module2-digital-twin/ch3-sensors', '402'),
                 exact: true,
                 sidebar: "tutorialSidebar"
               }
@@ -131,11 +101,6 @@ export default [
         ]
       }
     ]
-  },
-  {
-    path: '/ai-native-book/',
-    component: ComponentCreator('/ai-native-book/', 'af3'),
-    exact: true
   },
   {
     path: '*',

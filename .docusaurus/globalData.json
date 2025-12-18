@@ -1,77 +1,77 @@
 {
   "docusaurus-plugin-content-docs": {
     "default": {
-      "path": "/ai-native-book/docs",
+      "path": "/",
       "versions": [
         {
           "name": "current",
           "label": "Next",
           "isLast": true,
-          "path": "/ai-native-book/docs",
+          "path": "/",
           "mainDocId": "chapter1/index",
           "docs": [
             {
               "id": "chapter1/index",
-              "path": "/ai-native-book/docs/chapter1/",
+              "path": "/chapter1/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapter2/index",
-              "path": "/ai-native-book/docs/chapter2/",
+              "path": "/chapter2/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapter3/index",
-              "path": "/ai-native-book/docs/chapter3/",
+              "path": "/chapter3/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "chapter4/index",
-              "path": "/ai-native-book/docs/chapter4/",
+              "path": "/chapter4/",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "intro",
-              "path": "/ai-native-book/docs/intro"
+              "path": "/intro"
             },
             {
               "id": "module2-digital-twin/ch1-physics",
-              "path": "/ai-native-book/docs/module2-digital-twin/ch1-physics",
+              "path": "/module2-digital-twin/ch1-physics",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "module2-digital-twin/ch2-rendering",
-              "path": "/ai-native-book/docs/module2-digital-twin/ch2-rendering",
+              "path": "/module2-digital-twin/ch2-rendering",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "module2-digital-twin/ch3-sensors",
-              "path": "/ai-native-book/docs/module2-digital-twin/ch3-sensors",
+              "path": "/module2-digital-twin/ch3-sensors",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/chapter-1-getting-started",
-              "path": "/ai-native-book/docs/category/chapter-1-getting-started",
+              "path": "/category/chapter-1-getting-started",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/chapter-2-core-concepts",
-              "path": "/ai-native-book/docs/category/chapter-2-core-concepts",
+              "path": "/category/chapter-2-core-concepts",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/chapter-3-advanced-topics",
-              "path": "/ai-native-book/docs/category/chapter-3-advanced-topics",
+              "path": "/category/chapter-3-advanced-topics",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/chapter-4-the-ai-native-mindset",
-              "path": "/ai-native-book/docs/category/chapter-4-the-ai-native-mindset",
+              "path": "/category/chapter-4-the-ai-native-mindset",
               "sidebar": "tutorialSidebar"
             },
             {
               "id": "/category/module-2-digital-twin",
-              "path": "/ai-native-book/docs/category/module-2-digital-twin",
+              "path": "/category/module-2-digital-twin",
               "sidebar": "tutorialSidebar"
             }
           ],
@@ -79,7 +79,7 @@
           "sidebars": {
             "tutorialSidebar": {
               "link": {
-                "path": "/ai-native-book/docs/category/chapter-1-getting-started",
+                "path": "/category/chapter-1-getting-started",
                 "label": "Chapter 1: Getting Started"
               }
             }
