@@ -6,7 +6,7 @@ const config = {
   tagline: 'A comprehensive guide generated and evolved with AI assistance.',
   favicon: 'img/favicon.ico',
 
-  url: 'https://Mahnoor-Ghaffar.github.io',
+  url: process.env.VERCEL_URL ? `https://$\{process.env.VERCEL_URL}` : 'https://Mahnoor-Ghaffar.github.io',
   baseUrl: '/',
   organizationName: 'Mahnoor-Ghaffar', // Usually your GitHub org/user name.
   projectName: 'ai-native-book', // Usually your repo name.
