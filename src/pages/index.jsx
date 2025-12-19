@@ -103,6 +103,10 @@ const CoreTopicsSection = () => {
   );
 };
 
+import HumanoidNavigation from '@site/src/img/homepage/humanoid-navigation.png';
+import RoboticManipulation from '@site/src/img/homepage/robotic-manipulation.png';
+import AIPerception from '@site/src/img/homepage/ai-perception.png';
+
 const RealWorldApplicationsSection = () => {
   return (
     <Section title="Real-World Applications" className="applications-section">
@@ -111,19 +115,19 @@ const RealWorldApplicationsSection = () => {
           {
             title: 'Humanoid Navigation',
             description: 'Teach a humanoid robot to navigate complex environments.',
-            image: 'https://source.unsplash.com/400x250/?robot,navigation',
+            image: HumanoidNavigation,
             link: '/'
           },
           {
             title: 'Robotic Manipulation',
             description: 'Develop precise and intelligent robotic manipulation systems.',
-            image: 'https://source.unsplash.com/400x250/?robot,arm,manipulation',
+            image: RoboticManipulation,
             link: '/'
           },
           {
             title: 'AI Perception',
             description: 'Build advanced perception systems for autonomous agents.',
-            image: 'https://source.unsplash.com/400x250/?artificial,intelligence,perception',
+            image: AIPerception,
             link: '/chapter3'
           },
         ].map((app, i) => (
