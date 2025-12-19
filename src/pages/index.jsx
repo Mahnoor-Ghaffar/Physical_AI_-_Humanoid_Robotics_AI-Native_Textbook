@@ -19,7 +19,7 @@ const HomePage = () => {
       <Header />
       <FeaturesSection />
       <CoreTopicsSection />
-      <RealWorldApplicationsSection />
+      // <RealWorldApplicationsSection />
       <TestimonialsSection />
     </Layout>
   );
@@ -103,9 +103,9 @@ const CoreTopicsSection = () => {
   );
 };
 
-import HumanoidNavigation from '@site/src/img/homepage/humanoid-navigation.png';
-import RoboticManipulation from '@site/src/img/homepage/robotic-manipulation.png';
-import AIPerception from '@site/src/img/homepage/ai-perception.png';
+// import HumanoidNavigation from '@site/src/img/homepage/humanoid-navigation.png';
+// import RoboticManipulation from '@site/src/img/homepage/robotic-manipulation.png';
+// import AIPerception from '@site/src/img/homepage/ai-perception.png';
 
 const RealWorldApplicationsSection = () => {
   return (
