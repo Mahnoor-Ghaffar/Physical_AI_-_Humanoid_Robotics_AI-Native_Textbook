@@ -19,7 +19,7 @@ const HomePage = () => {
       <Header />
       <FeaturesSection />
       <CoreTopicsSection />
-      // <RealWorldApplicationsSection />
+      <RealWorldApplicationsSection />
       <TestimonialsSection />
     </Layout>
   );
