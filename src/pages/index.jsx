@@ -38,8 +38,8 @@ const Header = () => {
         <h1 className="hero-title">Physical AI & Advanced Robotics</h1>
         <p className="hero-tagline">An advanced textbook for the next generation of robotics engineers.</p>
         <div className="hero-buttons">
-          <Link to="/docs/intro" className="button button--primary">Start Learning</Link>
-          <Link to="/docs/chapter1" className="button button--secondary">Browse Glossary</Link>
+          <Link to="/" className="button button--primary">Start Learning</Link>
+          <Link to="/" className="button button--secondary">Browse Glossary</Link>
         </div>
       </div>
     </motion.header>
@@ -78,14 +78,14 @@ const CoreTopicsSection = () => {
     <Section title="Core Topics" className="core-topics-section">
       <div className="chips-grid">
         {[
-          {topic: 'Forward & Inverse Kinematics', link: '/docs/chapter1'},
-          {topic: 'ROS 2 Architecture', link: '/docs/chapter2'},
-          {topic: 'SLAM and Navigation', link: '/docs/chapter3'},
-          {topic: 'Computer Vision', link: '/docs/chapter4'},
-          {topic: 'Sensor Fusion', link: '/docs/chapter1'},
-          {topic: 'Control Systems', link: '/docs/chapter2'},
-          {topic: 'Humanoid Control', link: '/docs/chapter3'},
-          {topic: 'Simulation & Digital Twins', link: '/docs/category/module-2-digital-twin'},
+          {topic: 'Forward & Inverse Kinematics', link: '/'},
+          {topic: 'ROS 2 Architecture', link: '/'},
+          {topic: 'SLAM and Navigation', link: '/'},
+          {topic: 'Computer Vision', link: '/'},
+          {topic: 'Sensor Fusion', link: '/'},
+          {topic: 'Control Systems', link: '/'},
+          {topic: 'Humanoid Control', link: '/'},
+          {topic: 'Simulation & Digital Twins', link: '/'},
         ].map((item, i) => (
           <Link to={item.link} key={item.topic}>
             <motion.div
@@ -112,19 +112,19 @@ const RealWorldApplicationsSection = () => {
             title: 'Humanoid Navigation',
             description: 'Teach a humanoid robot to navigate complex environments.',
             image: 'https://picsum.photos/seed/humanoid/400/250',
-            link: '/docs/chapter3'
+            link: '/'
           },
           {
             title: 'Robotic Manipulation',
             description: 'Develop precise and intelligent robotic manipulation systems.',
             image: 'https://picsum.photos/seed/manipulation/400/250',
-            link: '/docs/chapter2'
+            link: '/'
           },
           {
             title: 'AI Perception',
             description: 'Build advanced perception systems for autonomous agents.',
             image: 'https://picsum.photos/seed/perception/400/250',
-            link: '/docs/chapter4'
+            link: '/'
           },
         ].map((app, i) => (
           <Link to={app.link} key={app.title} className="card-link">
