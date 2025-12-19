@@ -52,7 +52,7 @@ const config = {
         title: 'AI/Spec-Driven Book',
         logo: {
           alt: 'Robot Logo',
-          src: 'img/logo.svg',
+          src: 'img/logo.png',
         },
         items: [
           {
@@ -61,7 +61,11 @@ const config = {
             position: 'left',
             label: 'Book',
           },
-
+          {
+            href: 'https://github.com/Mahnoor-Ghaffar/ai-native-book',
+            label: 'GitHub',
+            position: 'right',
+          },
         ],
       },
       footer: {
@@ -76,8 +80,26 @@ const config = {
               },
             ],
           },
+          {
+            title: 'Community',
+            items: [
+              {
+                label: 'GitHub',
+                href: 'https://github.com/Mahnoor-Ghaffar/ai-native-book',
+              },
+            ],
+          },
+          {
+            title: 'More',
+            items: [
+              {
+                label: 'Docusaurus',
+                href: 'https://docusaurus.io/',
+              },
+            ],
+          },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} AI Native Book. Built with Docusaurus.`,
       },
       prism: {
         theme: {
