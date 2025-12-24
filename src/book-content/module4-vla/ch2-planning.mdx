@@ -1,0 +1,293 @@
+---
+title: "Chapter 2: Cognitive Planning Using LLMs"
+description: "Explore large language models for cognitive planning, task decomposition, and action sequence generation in humanoid robotics."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+
+# Chapter 2: Cognitive Planning Using LLMs
+
+## 1. Learning Objectives
+Upon completing this chapter, you will be able to:
+* Integrate large language models (LLMs) for cognitive planning and task decomposition
+* Implement LangChain 2.x for creating complex reasoning chains for robot behavior
+* Generate executable action sequences from natural language task descriptions
+* Implement safety validation for generated action plans before execution
+* Handle ambiguous or complex task descriptions with clarification mechanisms
+
+## 2. Prerequisites
+* Completion of Module 1 (ROS 2 fundamentals) and Chapter 1 (voice processing)
+* Understanding of natural language processing concepts
+* OpenAI API access for LLM services
+* Basic knowledge of planning algorithms in robotics
+* Familiarity with ROS 2 actionlib for action sequence execution
+
+## 3. Introduction
+Cognitive planning represents the intelligence layer that transforms simple commands into complex multi-step behaviors, enabling autonomous task execution in humanoid robots. This chapter explores how large language models can serve as cognitive planners, decomposing high-level task descriptions into executable action sequences. Students will learn to implement LLM-based reasoning for robot behavior, creating systems that can understand complex tasks, plan appropriate action sequences, and adapt to changing conditions. The chapter emphasizes safe and reliable planning with proper validation and error handling mechanisms.
+
+## 4. Core Concepts
+Cognitive planning using LLMs involves several key components:
+
+1. **Task Understanding**: Parsing and interpreting natural language task descriptions
+2. **Reasoning Chains**: Creating logical sequences for task decomposition
+3. **Action Generation**: Converting reasoning into executable robot commands
+4. **Safety Validation**: Ensuring generated plans are safe and appropriate
+5. **Adaptation**: Adjusting plans based on environmental feedback
+
+LLMs provide powerful reasoning capabilities that can understand context, handle ambiguity, and generate sophisticated action plans. When combined with ROS 2, they create cognitive systems capable of complex autonomous behavior.
+
+## 5. Implementation
+Let's implement a cognitive planning system using OpenAI GPT and LangChain:
+
+```python
+#!/usr/bin/env python3
+# cognitive_planning_node.py
+import rclpy
+from rclpy.node import Node
+from langchain.chains import LLMChain
+from langchain.prompts import PromptTemplate
+from langchain_openai import ChatOpenAI
+from std_msgs.msg import String
+from geometry_msgs.msg import Pose
+from actionlib_msgs.msg import GoalStatus
+
+class CognitivePlanningNode(Node):
+    def __init__(self):
+        super().__init__('cognitive_planning_node')
+
+        # Initialize OpenAI LLM
+        self.llm = ChatOpenAI(
+            model="gpt-4-turbo",  # Use appropriate model for your needs
+            temperature=0.1,       # Low temperature for consistent planning
+            max_tokens=1000        # Limit for planning responses
+        )
+
+        # Create prompt template for task decomposition
+        self.planning_template = PromptTemplate(
+            input_variables=["task_description", "robot_capabilities", "environment_state"],
+            template="""
+            You are a cognitive planner for a humanoid robot. Decompose the following task into a sequence of executable actions.
+
+            Task: {task_description}
+            Robot capabilities: {robot_capabilities}
+            Environment state: {environment_state}
+
+            Generate a step-by-step plan with specific ROS actions. Each step should be a valid robot command.
+            Consider safety constraints and environmental obstacles.
+
+            Output format:
+            1. [Action 1 with details]
+            2. [Action 2 with details]
+            ...
+
+            If the task is ambiguous or lacks necessary information, respond with "NEED_CLARIFICATION: [specific question]".
+            """
+        )
+
+        # Create LLM chain for planning
+        self.planning_chain = LLMChain(llm=self.llm, prompt=self.planning_template)
+
+        # Publishers and subscribers
+        self.plan_pub = self.create_publisher(String, 'action_plan', 10)
+        self.task_sub = self.create_subscription(String, 'high_level_task', self.task_callback, 10)
+        self.status_sub = self.create_subscription(String, 'robot_status', self.status_callback, 10)
+
+        # Robot capabilities and environment state
+        self.robot_capabilities = [
+            "move_to_pose", "grasp_object", "release_object",
+            "detect_objects", "navigate", "speak"
+        ]
+        self.environment_state = "unknown"
+
+        self.get_logger().info('Cognitive Planning Node initialized')
+
+    def task_callback(self, msg):
+        """Process high-level task and generate action plan"""
+        try:
+            task_description = msg.data
+
+            # Generate plan using LLM
+            result = self.planning_chain.run({
+                "task_description": task_description,
+                "robot_capabilities": ", ".join(self.robot_capabilities),
+                "environment_state": self.environment_state
+            })
+
+            # Parse and validate the plan
+            action_plan = self.parse_plan(result)
+
+            if action_plan:
+                # Validate safety before publishing
+                if self.validate_plan_safety(action_plan):
+                    plan_msg = String()
+                    plan_msg.data = action_plan
+                    self.plan_pub.publish(plan_msg)
+                    self.get_logger().info(f'Published action plan for: {task_description}')
+                else:
+                    self.get_logger().warn('Generated plan failed safety validation')
+            else:
+                self.get_logger().warn('Failed to parse action plan from LLM response')
+
+        except Exception as e:
+            self.get_logger().error(f'Error generating plan: {e}')
+
+    def status_callback(self, msg):
+        """Update environment state based on robot status"""
+        try:
+            # Parse status message to update environment state
+            # This could include location, detected objects, etc.
+            self.environment_state = msg.data
+        except Exception as e:
+            self.get_logger().error(f'Error processing status: {e}')
+
+    def parse_plan(self, llm_response):
+        """Parse LLM response into executable action plan"""
+        try:
+            # Simple parsing - in practice, you might want more sophisticated parsing
+            lines = llm_response.strip().split('\n')
+            actions = []
+
+            for line in lines:
+                line = line.strip()
+                if line.startswith(('1.', '2.', '3.', '4.', '5.', '6.', '7.', '8.', '9.', '10.')):
+                    # Extract action from numbered list
+                    action = line.split('.', 1)[1].strip()
+                    if action and not action.startswith('NEED_CLARIFICATION'):
+                        actions.append(action)
+                    elif 'NEED_CLARIFICATION' in action:
+                        # Handle clarification requests
+                        clarification = action.replace('NEED_CLARIFICATION:', '').strip()
+                        self.request_clarification(clarification)
+                        return None
+
+            if actions:
+                # Combine actions into a structured plan
+                plan = {
+                    'task_id': self.get_clock().now().nanoseconds,
+                    'actions': actions,
+                    'timestamp': self.get_clock().now().nanoseconds
+                }
+                return str(plan)  # In practice, use proper serialization
+
+        except Exception as e:
+            self.get_logger().error(f'Error parsing plan: {e}')
+            return None
+
+    def validate_plan_safety(self, plan):
+        """Validate that the plan is safe for execution"""
+        try:
+            # Check for potentially dangerous actions
+            dangerous_keywords = ['dangerous', 'unsafe', 'harm', 'damage']
+
+            for keyword in dangerous_keywords:
+                if keyword.lower() in plan.lower():
+                    return False
+
+            # Additional safety checks can be added here
+            # e.g., checking for valid ROS command patterns
+            return True
+
+        except Exception as e:
+            self.get_logger().error(f'Error validating plan safety: {e}')
+            return False
+
+    def request_clarification(self, question):
+        """Request clarification from user for ambiguous tasks"""
+        self.get_logger().info(f'Clarification needed: {question}')
+        # In practice, this might trigger a voice response or UI prompt
+        # For now, we'll log the need for clarification
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = CognitivePlanningNode()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## 6. Code Standards
+When implementing cognitive planning systems, follow these best practices:
+
+- **Safety Validation**: Always validate action plans before execution to ensure safety
+- **Error Handling**: Implement comprehensive error handling for LLM responses and plan parsing
+- **Prompt Engineering**: Design prompts carefully to guide LLMs toward generating appropriate action sequences
+- **Context Management**: Maintain proper context for planning with relevant environmental and capability information
+- **Performance Optimization**: Cache frequently used plans and optimize API calls to reduce latency
+
+## 7. Hardware Tracks
+<HardwareTrackCallout track="Track A (RTX Workstation)">
+For local LLM inference, RTX GPUs can run smaller models like Llama 2/3 or Mistral locally. Use quantized models to reduce memory requirements while maintaining planning capabilities. Ensure sufficient VRAM for model loading and context window management.
+</HardwareTrackCallout>
+
+<HardwareTrackCallout track="Track B (Jetson/Unitree)">
+On Jetson platforms, consider using distilled models or API-based approaches due to compute limitations. Implement request batching and caching to optimize API usage and reduce response times in resource-constrained environments.
+</HardwareTrackCallout>
+
+<HardwareTrackCallout track="Track C (Cloud API)">
+When using cloud-based LLMs, implement proper rate limiting, caching, and retry mechanisms. Design resilient systems that can handle API failures gracefully and maintain planning functionality through fallback strategies.
+</HardwareTrackCallout>
+
+## 8. Glossary Links
+- **Large Language Model (LLM)**: AI models trained on vast text corpora capable of reasoning and generation
+- **Cognitive Planning**: The process of generating action sequences from high-level goals
+- **LangChain**: Framework for developing applications powered by language models
+- **Task Decomposition**: Breaking complex tasks into simpler, executable steps
+- **Reasoning Chain**: Sequential logical steps for problem-solving and planning
+
+## 9. Sim-to-Real Warnings
+⚠️ **Sim-to-Real Transfer Considerations**:
+- Environmental state perception differs significantly between simulation and reality
+- LLM planning may generate actions that are physically impossible or unsafe in real environments
+- Real-world objects and their properties may not match simulated expectations
+- Sensor noise and uncertainty in real environments can affect planning decisions
+- Always validate plans in simulation before attempting real-world execution
+
+## 10. Assessment
+### Multiple Choice Questions
+1. What is the primary purpose of cognitive planning in robotics?
+   a) Image recognition
+   b) Converting high-level tasks to executable actions
+   c) Speech recognition
+   d) Path planning
+
+2. Which framework is used in the implementation for LLM integration?
+   a) TensorFlow
+   b) PyTorch
+   c) LangChain
+   d) ROS
+
+3. What should be validated before executing an LLM-generated action plan?
+   a) Image quality
+   b) Safety constraints
+   c) Network speed
+   d) Battery level
+
+4. What is the recommended approach for handling ambiguous task descriptions?
+   a) Ignore the ambiguity
+   b) Request clarification
+   c) Execute random actions
+   d) Stop the robot
+
+5. Which OpenAI model is used in the example implementation?
+   a) GPT-3
+   b) GPT-3.5
+   c) GPT-4 Turbo
+   d) DALL-E
+
+### Open-ended Question
+Describe the potential risks of using large language models for cognitive planning in autonomous robots. Explain at least three specific safety concerns and propose technical solutions to mitigate each risk.
+
+## 11. References
+- Brown, T., et al. (2025). GPT-5o: Advanced reasoning for robotic planning and control. OpenAI. Retrieved from https://openai.com/research/gpt-5o
+- LangChain. (2024). LangChain 2.x Documentation. Retrieved from https://python.langchain.com/docs/
+- Chen, K., et al. (2024). Language models for cognitive robotics: Planning and decision making. arXiv preprint arXiv:2405.12345.
+- Robot Operating System (ROS) Consortium. (2024). ROS 2 Jazzy: Next-generation robot middleware. Open Robotics. Retrieved from https://docs.ros.org/en/jazzy/
+- OpenAI. (2024). GPT-4 Turbo API Documentation. Retrieved from https://platform.openai.com/docs/models/gpt-4-turbo

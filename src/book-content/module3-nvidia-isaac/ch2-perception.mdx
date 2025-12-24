@@ -1,0 +1,98 @@
+---
+title: "Chapter 2: Isaac ROS for Hardware-Accelerated Perception"
+description: "Explore Isaac ROS for hardware-accelerated perception with CUDA-accelerated VSLAM, sensor fusion, and GEMs integration for humanoid robotics applications."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+
+# Chapter 2: Isaac ROS for Hardware-Accelerated Perception
+
+## 1. Epic Overview
+This chapter delves into NVIDIA Isaac ROS, focusing on hardware-accelerated perception pipelines for humanoid robots. Students will learn to deploy CUDA-accelerated VSLAM systems, implement sensor fusion with camera and IMU data, and integrate Isaac ROS GEMs (GPU accelerated perception modules). The chapter covers optimization techniques for embedded deployment on Jetson hardware and demonstrates how to achieve real-time performance for humanoid navigation systems with emphasis on Jetson/Unitree hardware track.
+
+## 2. Phased Roadmap
+- Phase 1: Isaac ROS installation and GEMs overview
+- Phase 2: VSLAM pipeline implementation with CUDA acceleration
+- Phase 3: Sensor fusion and calibration techniques
+- Phase 4: Jetson hardware optimization and deployment
+- Phase 5: Integration with humanoid navigation systems
+
+## 3. Architecture Sketch
+- Docusaurus folder: `/docs/module3-nvidia-isaac/` (ch2-perception.mdx)
+- VslamPipeline component for interactive visualization
+- CUDA-accelerated perception pipeline diagrams
+- Isaac ROS GEMs integration examples
+- Sensor fusion workflow visualizations
+
+## 4. Chapter Template Enforcement
+- 11 sections mandatory with Next Actions
+- Hardware track callouts (A: RTX Workstation, B: Jetson/Unitree, C: Cloud/AWS)
+- Glossary terms linked inline with central glossary
+- Explicit sim-to-real warnings with executable code examples
+- 3-5 runnable Isaac ROS examples per chapter
+
+## 5. Formatting & Code Standards
+- Isaac ROS GEMs with CUDA optimization notes
+- ROS 2 Jazzy launch files with detailed comments
+- Sensor fusion YAML configurations
+- Performance benchmarking code snippets
+- Mermaid diagrams for perception pipeline flows
+- APA references block with ≥50% official sources
+
+## 6. Research Approach
+- Official developer.nvidia.com/isaac-ros documentation first
+- Isaac ROS GEMs API documentation and performance benchmarks
+- arXiv papers on VSLAM for embodied AI and humanoid robotics
+- NVIDIA Jetson hardware optimization guides
+- Concurrent validation while drafting content
+
+## 7. Key Decisions
+- Base on Isaac ROS 3.x with CUDA 12.x support
+- Humanoid examples: Generic bipedal + Unitree H1 perception integration
+- Full deployable VSLAM pipelines with performance optimization
+- Interlinking to Module 1 (ROS 2 foundation) and Module 3 (Nav2 integration)
+- Three distinct hardware tracks with specific optimization strategies
+
+## 8. Testing & Validation
+- Docusaurus build validation
+- Code execution in Docker (Ubuntu 22.04 + ROS 2 Jazzy + Isaac ROS 3.x)
+- Performance benchmarking against baseline requirements (30+ FPS)
+- Accuracy verification against official NVIDIA documentation
+- Learning objectives coverage checklist
+- APA citation linting with ≥50% official sources
+- Playwright tests for section visibility and diagram rendering
+
+## 9. Version Strategy
+- Pin Isaac ROS 3.x, CUDA 12.x, ROS 2 Jazzy LTS
+- Note migration paths for future Isaac ROS updates
+- Maintain changelog for tool version changes
+- Document breaking changes between versions
+
+## 10. Risks & Mitigation
+| Risk | Mitigation |
+|:-----|:-----------|
+| Jetson hardware compatibility issues | Provide detailed compatibility matrices, offer alternative deployment strategies, test on multiple Jetson platforms |
+| Performance degradation on embedded hardware | Implement optimization techniques, provide performance profiling tools, offer cloud fallback options |
+| Complex CUDA optimization requirements | Provide step-by-step optimization guides, performance benchmarking examples, best practices documentation |
+| Sensor calibration challenges for humanoid robots | Include detailed calibration procedures, multiple sensor fusion examples, troubleshooting guides |
+| Maintaining APA citation compliance | Use automated linting tools, provide clear author guidelines |
+| Ensuring executable code quality | Implement CI/CD with Docker-based testing for all examples |
+
+## 11. Timeline Estimate
+- Phase 1 (Installation & GEMs Overview): 1 week
+- Phase 2 (VSLAM Implementation): 1 week
+- Phase 3 (Sensor Fusion & Calibration): 1 week
+- Phase 4 (Jetson Optimization): 1 week
+- Phase 5 (Humanoid Integration): 1 week
+- Total: 5 weeks
+
+## 12. Next Actions
+- Complete Isaac ROS 3.x installation guide for Jetson platforms
+- Implement CUDA-accelerated VSLAM pipeline with performance benchmarks
+- Create sensor fusion examples with camera/IMU integration
+- Develop optimization techniques for Jetson Orin deployment
+- Integrate hardware track callouts for Jetson/Unitree optimization
+
+<HardwareTrackCallout track="Track B (Jetson/Unitree)">
+When deploying Isaac ROS perception pipelines on Jetson hardware, optimize GEMs for embedded performance with reduced resolution and frame rates. AGX Orin provides sufficient compute for real-time VSLAM with proper CUDA optimization techniques.
+</HardwareTrackCallout>

@@ -1,0 +1,226 @@
+---
+title: "Chapter 1: Voice-to-Action with OpenAI Whisper"
+description: "Explore OpenAI Whisper for voice recognition and transcription, integrating with ROS 2 for voice-controlled humanoid robot commands."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+
+# Chapter 1: Voice-to-Action with OpenAI Whisper
+
+## 1. Learning Objectives
+Upon completing this chapter, you will be able to:
+* Integrate OpenAI Whisper v3 for real-time voice command transcription with multilingual support
+* Implement ROS 2 nodes for processing voice input and generating robot commands
+* Optimize Whisper performance across different hardware platforms (RTX, Jetson, Cloud)
+* Handle noise-robust transcription and multilingual voice commands
+* Validate voice command safety before robot action execution
+
+## 2. Prerequisites
+* Completion of Module 1 (ROS 2 fundamentals)
+* Basic understanding of audio processing concepts
+* Ubuntu 22.04 with ROS 2 Jazzy installed
+* OpenAI API access for Whisper service
+* Microphone input device for voice capture
+
+## 3. Introduction
+Voice-to-action represents a critical interface for human-robot interaction, enabling natural communication between humans and humanoid robots. This chapter focuses on implementing OpenAI Whisper v3 for real-time voice recognition and transcription, creating a bridge between spoken commands and executable robot actions. Students will learn to process voice input through Whisper's advanced speech recognition capabilities and translate the transcriptions into ROS 2 messages that trigger specific robot behaviors. The chapter emphasizes practical implementation with considerations for different hardware platforms and real-world deployment scenarios.
+
+## 4. Core Concepts
+The voice-to-action pipeline involves several key components working in sequence:
+
+1. **Audio Capture**: Capturing voice input from microphones with appropriate sampling rates and formats
+2. **Transcription Service**: Using OpenAI Whisper for converting speech to text with high accuracy
+3. **Natural Language Processing**: Interpreting the transcribed text for command intent
+4. **ROS Message Generation**: Converting interpreted commands into executable ROS 2 messages
+5. **Safety Validation**: Ensuring commands are safe before execution
+
+The pipeline must handle various challenges including background noise, different accents, multilingual support, and real-time processing requirements. Whisper v3 provides robust speech recognition capabilities that can operate in diverse acoustic environments while maintaining low latency for responsive robot interaction.
+
+## 5. Implementation
+Let's implement a voice-to-action system using OpenAI Whisper and ROS 2:
+
+```python
+#!/usr/bin/env python3
+# voice_command_node.py
+import rclpy
+from rclpy.node import Node
+import whisper
+import pyaudio
+import numpy as np
+from std_msgs.msg import String
+from audio_common_msgs.msg import AudioData
+
+class VoiceCommandNode(Node):
+    def __init__(self):
+        super().__init__('voice_command_node')
+
+        # Initialize Whisper model
+        self.model = whisper.load_model("base")
+
+        # Audio stream parameters
+        self.chunk = 1024
+        self.format = pyaudio.paInt16
+        self.channels = 1
+        self.rate = 16000
+
+        # Initialize PyAudio
+        self.audio = pyaudio.PyAudio()
+
+        # ROS publishers and subscribers
+        self.command_pub = self.create_publisher(String, 'robot_command', 10)
+        self.audio_sub = self.create_subscription(AudioData, 'audio_input', self.audio_callback, 10)
+
+        # Start audio stream
+        self.stream = self.audio.open(
+            format=self.format,
+            channels=self.channels,
+            rate=self.rate,
+            input=True,
+            frames_per_buffer=self.chunk
+        )
+
+        self.get_logger().info('Voice Command Node initialized')
+
+    def audio_callback(self, msg):
+        """Process incoming audio data and transcribe to text"""
+        try:
+            # Convert audio data to numpy array
+            audio_array = np.frombuffer(msg.data, dtype=np.int16)
+
+            # Transcribe using Whisper
+            result = self.model.transcribe(audio_array, fp16=False)
+            transcription = result["text"]
+
+            # Process transcription and generate command
+            command = self.process_transcription(transcription)
+
+            if command:
+                # Publish command to robot
+                cmd_msg = String()
+                cmd_msg.data = command
+                self.command_pub.publish(cmd_msg)
+                self.get_logger().info(f'Published command: {command}')
+
+        except Exception as e:
+            self.get_logger().error(f'Error processing audio: {e}')
+
+    def process_transcription(self, transcription):
+        """Process transcribed text and convert to robot command"""
+        # Normalize transcription
+        text = transcription.strip().lower()
+
+        # Simple command mapping (can be expanded with NLP)
+        command_map = {
+            'move forward': 'move_forward',
+            'move backward': 'move_backward',
+            'turn left': 'turn_left',
+            'turn right': 'turn_right',
+            'stop': 'stop',
+            'wave': 'wave',
+            'sit': 'sit',
+            'stand': 'stand'
+        }
+
+        for phrase, command in command_map.items():
+            if phrase in text:
+                return command
+
+        return None  # No recognized command
+
+def main(args=None):
+    rclpy.init(args=args)
+    node = VoiceCommandNode()
+
+    try:
+        rclpy.spin(node)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        node.stream.stop_stream()
+        node.stream.close()
+        node.audio.terminate()
+        node.destroy_node()
+        rclpy.shutdown()
+
+if __name__ == '__main__':
+    main()
+```
+
+## 6. Code Standards
+When implementing voice-to-action systems, follow these best practices:
+
+- **Error Handling**: Always implement robust error handling for audio capture and transcription failures
+- **Resource Management**: Properly manage audio stream resources to prevent memory leaks
+- **Latency Optimization**: Optimize for real-time processing with minimal delay between voice input and action execution
+- **Security**: Never log or store sensitive voice data without proper consent and encryption
+- **Validation**: Always validate commands before execution to ensure safety
+
+## 7. Hardware Tracks
+<HardwareTrackCallout track="Track A (RTX Workstation)">
+For local inference with Whisper, RTX 40-series GPUs provide optimal performance for real-time transcription. Use CUDA acceleration to reduce latency and enable processing of longer audio segments. Ensure at least 8GB VRAM for Whisper large model support.
+</HardwareTrackCallout>
+
+<HardwareTrackCallout track="Track B (Jetson/Unitree)">
+On Jetson platforms, consider using Whisper's smaller models (tiny or base) for efficient edge processing. Optimize audio capture parameters for lower latency and implement streaming transcription to maintain responsiveness with limited compute resources.
+</HardwareTrackCallout>
+
+<HardwareTrackCallout track="Track C (Cloud API)">
+When using OpenAI's Whisper API, implement proper rate limiting and caching mechanisms. Handle API failures gracefully with fallback strategies and ensure network connectivity for reliable voice processing.
+</HardwareTrackCallout>
+
+## 8. Glossary Links
+- **Whisper**: OpenAI's speech recognition model for converting audio to text
+- **Audio Stream**: Continuous flow of audio data captured from microphones
+- **Transcription**: The process of converting spoken language into written text
+- **Voice Command**: A spoken instruction that triggers a specific robot behavior
+- **Real-time Processing**: Processing audio with minimal delay to maintain responsive interaction
+
+## 9. Sim-to-Real Warnings
+⚠️ **Sim-to-Real Transfer Considerations**:
+- Acoustic properties differ significantly between simulated and real environments
+- Background noise and reverberation in real environments may affect transcription accuracy
+- Microphone placement and quality impact voice recognition performance
+- Real-world audio may contain artifacts not present in clean training data
+- Always test voice commands in the actual deployment environment before relying on voice control
+
+## 10. Assessment
+### Multiple Choice Questions
+1. Which OpenAI model is primarily used for voice recognition in this chapter?
+   a) GPT-4
+   b) Whisper
+   c) DALL-E
+   d) CLIP
+
+2. What is the primary purpose of the process_transcription method?
+   a) To capture audio from the microphone
+   b) To convert transcribed text into robot commands
+   c) To publish commands to the robot
+   d) To initialize the Whisper model
+
+3. Which audio sampling rate is commonly used for voice processing?
+   a) 8000 Hz
+   b) 11025 Hz
+   c) 16000 Hz
+   d) 44100 Hz
+
+4. What is an important safety consideration when implementing voice commands?
+   a) Audio file size
+   b) Command validation before execution
+   c) Microphone brand
+   d) Audio format
+
+5. Which hardware track is most suitable for real-time local inference?
+   a) Cloud API
+   b) RTX Workstation
+   c) Jetson Edge
+   d) CPU-only
+
+### Open-ended Question
+Explain the challenges of implementing voice recognition in real-world environments compared to controlled laboratory settings. Discuss at least three specific factors that can affect transcription accuracy and propose mitigation strategies for each.
+
+## 11. References
+- Radford, A., et al. (2023). Whisper: Robust speech recognition via large-scale weak supervision. OpenAI. Retrieved from https://openai.com/research/whisper
+- OpenAI. (2024). Whisper API Documentation. Retrieved from https://platform.openai.com/docs/api-reference/whisper
+- Robot Operating System (ROS) Consortium. (2024). ROS 2 Jazzy: Next-generation robot middleware. Open Robotics. Retrieved from https://docs.ros.org/en/jazzy/
+- Audio Common Messages. (2024). Audio data message specifications for ROS. Retrieved from https://github.com/ros-drivers/audio_common
+- NVIDIA. (2024). Jetson Platform Audio Processing Guidelines. Retrieved from https://developer.nvidia.com/embedded/jetson-developer-zone

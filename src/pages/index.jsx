@@ -3,12 +3,18 @@ import Layout from '@theme/Layout';
 import { motion } from 'framer-motion';
 import Link from '@docusaurus/Link';
 import Logo from '../components/Homepage/Logo';
+import HeroSection from '../components/HeroSection';
+import StatusSection from '../components/StatusSection';
+import BackgroundOverlays from '../components/BackgroundOverlays';
 
 const Section = ({ children, title, className }) => (
   <section className={`section ${className}`}>
-    <div className="container">
-      {title && <h2 className="section-title">{title}</h2>}
-      {children}
+    <div className="section-wrapper">
+      <BackgroundOverlays className={className.replace('section-', '')} />
+      <div className="container">
+        {title && <h2 className="section-title">{title}</h2>}
+        {children}
+      </div>
     </div>
   </section>
 );
@@ -16,35 +22,18 @@ const Section = ({ children, title, className }) => (
 const HomePage = () => {
   return (
     <Layout>
-      <Header />
+      <HeroSection />
+      <StatusSection />
       <FeaturesSection />
       <CoreTopicsSection />
+      <AdvancedTopicsSection />
       <RealWorldApplicationsSection />
       <TestimonialsSection />
     </Layout>
   );
 };
 
-const Header = () => {
-  return (
-    <motion.header
-      initial={{ opacity: 0, y: -50 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="hero-section"
-    >
-      <div className="container">
-        <Logo />
-        <h1 className="hero-title">Physical AI & Advanced Robotics</h1>
-        <p className="hero-tagline">An advanced textbook for the next generation of robotics engineers.</p>
-        <div className="hero-buttons">
-          <Link to="/chapter1" className="button button--primary">Start Learning</Link>
-          <Link to="/intro" className="button button--secondary">Browse Glossary</Link>
-        </div>
-      </div>
-    </motion.header>
-  );
-};
+ 
 
 const FeaturesSection = () => {
   return (
@@ -80,11 +69,11 @@ const CoreTopicsSection = () => {
         {[
           {topic: 'Forward & Inverse Kinematics', link: '/chapter4'},
           {topic: 'ROS 2 Architecture', link: '/chapter1'},
-          {topic: 'SLAM and Navigation', link: '/'},
-          {topic: 'Computer Vision', link: '/'},
+          {topic: 'SLAM and Navigation', link: '/module3-nvidia-isaac/ch3-nav2'},
+          {topic: 'Computer Vision', link: '/module3-nvidia-isaac/ch2-perception'},
           {topic: 'Sensor Fusion', link: '/module2-digital-twin/ch3-sensors'},
-          {topic: 'Control Systems', link: '/'},
-          {topic: 'Humanoid Control', link: '/'},
+          {topic: 'Control Systems', link: '/chapter3'},
+          {topic: 'Humanoid Control', link: '/module4-vla'},
           {topic: 'Simulation & Digital Twins', link: '/category/module-2-digital-twin'},
         ].map((item, i) => (
           <Link to={item.link} key={item.topic}>
@@ -103,9 +92,61 @@ const CoreTopicsSection = () => {
   );
 };
 
-// import HumanoidNavigation from '@site/src/img/homepage/humanoid-navigation.png';
-// import RoboticManipulation from '@site/src/img/homepage/robotic-manipulation.png';
-// import AIPerception from '@site/src/img/homepage/ai-perception.png';
+const AdvancedTopicsSection = () => {
+  return (
+    <Section title="Advanced Topics" className="advanced-topics-section">
+      <div className="cards-grid">
+        {[
+          {
+            title: 'Reinforcement Learning',
+            description: 'Train robots using advanced RL algorithms for complex tasks.',
+            icon: '🧠',
+            link: '/module4-vla'
+          },
+          {
+            title: 'AI Planning & Reasoning',
+            description: 'Implement intelligent decision-making for autonomous systems.',
+            icon: '🧩',
+            link: '/module4-vla/ch2-planning'
+          },
+          {
+            title: 'Multi-Robot Systems',
+            description: 'Coordinate multiple robots for collaborative tasks.',
+            icon: '🤖',
+            link: '/chapter3'
+          },
+          {
+            title: 'Human-Robot Interaction',
+            description: 'Design intuitive interfaces for human-robot collaboration.',
+            icon: '🤝',
+            link: '/module4-vla/ch1-voice'
+          },
+        ].map((topic, i) => (
+          <Link to={topic.link} key={topic.title} className="card-link">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              className="card"
+            >
+              <div className="card-icon" style={{ fontSize: '3rem', textAlign: 'center', padding: '1.5rem', color: 'var(--primary-accent)' }}>
+                {topic.icon}
+              </div>
+              <div className="card-content">
+                <h3>{topic.title}</h3>
+                <p>{topic.description}</p>
+              </div>
+            </motion.div>
+          </Link>
+        ))}
+      </div>
+    </Section>
+  );
+};
+
+import HumanoidNavigation from '@site/src/img/homepage/cards/humanoid-robot-navigation.png';
+import RoboticManipulation from '@site/src/img/homepage/cards/robotic-arm-manipulation.png';
+import AIPerception from '@site/src/img/homepage/cards/AI-computer-vision-perception.png';
 
 const RealWorldApplicationsSection = () => {
   return (
@@ -116,19 +157,19 @@ const RealWorldApplicationsSection = () => {
             title: 'Humanoid Navigation',
             description: 'Teach a humanoid robot to navigate complex environments.',
             image: HumanoidNavigation,
-            link: '/'
+            link: '/module3-nvidia-isaac/ch3-nav2'
           },
           {
             title: 'Robotic Manipulation',
             description: 'Develop precise and intelligent robotic manipulation systems.',
             image: RoboticManipulation,
-            link: '/'
+            link: '/chapter4'
           },
           {
             title: 'AI Perception',
             description: 'Build advanced perception systems for autonomous agents.',
             image: AIPerception,
-            link: '/chapter3'
+            link: '/module3-nvidia-isaac/ch2-perception'
           },
         ].map((app, i) => (
           <Link to={app.link} key={app.title} className="card-link">

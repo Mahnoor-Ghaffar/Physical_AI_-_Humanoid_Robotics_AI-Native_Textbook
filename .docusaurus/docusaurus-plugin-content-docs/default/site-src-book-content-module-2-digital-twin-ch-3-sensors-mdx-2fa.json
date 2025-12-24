@@ -17,5 +17,9 @@
   "previous": {
     "title": "Chapter 2: Rendering in Digital Twins",
     "permalink": "/module2-digital-twin/ch2-rendering"
+  },
+  "next": {
+    "title": "Module 3: The AI-Robot Brain (NVIDIA Isaac™)",
+    "permalink": "/category/module-3-ai-robot-brain"
   }
 }

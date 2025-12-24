@@ -1,7 +1,8 @@
 {
   "defaultLocale": "en",
   "locales": [
-    "en"
+    "en",
+    "ur"
   ],
   "path": "i18n",
   "currentLocale": "en",
@@ -15,6 +16,16 @@
       "translate": false,
       "url": "https://Mahnoor-Ghaffar.github.io",
       "baseUrl": "/"
+    },
+    "ur": {
+      "label": "Urdu",
+      "direction": "rtl",
+      "htmlLang": "ur",
+      "calendar": "gregory",
+      "path": "ur",
+      "translate": false,
+      "url": "https://Mahnoor-Ghaffar.github.io",
+      "baseUrl": "/ur/"
     }
   }
 }

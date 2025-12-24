@@ -6,7 +6,7 @@
 export default {
   "title": "Physical AI & Humanoid Robotics Textbook",
   "tagline": "A comprehensive guide generated and evolved with AI assistance.",
-  "favicon": "img/favicon.ico",
+  "favicon": "img/logo.png",
   "url": "https://Mahnoor-Ghaffar.github.io",
   "baseUrl": "/",
   "organizationName": "Mahnoor-Ghaffar",
@@ -17,10 +17,20 @@ export default {
   "i18n": {
     "defaultLocale": "en",
     "locales": [
-      "en"
+      "en",
+      "ur"
     ],
-    "path": "i18n",
-    "localeConfigs": {}
+    "localeConfigs": {
+      "en": {
+        "label": "English",
+        "direction": "ltr"
+      },
+      "ur": {
+        "label": "Urdu",
+        "direction": "rtl"
+      }
+    },
+    "path": "i18n"
   },
   "presets": [
     [
@@ -38,7 +48,7 @@ export default {
     ]
   ],
   "themeConfig": {
-    "image": "img/docusaurus-social-card.jpg",
+    "image": "img/logo.png",
     "colorMode": {
       "respectPrefersColorScheme": true,
       "defaultMode": "light",
@@ -48,7 +58,7 @@ export default {
       "title": "AI/Spec-Driven Book",
       "logo": {
         "alt": "Robot Logo",
-        "src": "img/logo.svg"
+        "src": "img/logo.png"
       },
       "items": [
         {
@@ -56,6 +66,11 @@ export default {
           "sidebarId": "tutorialSidebar",
           "position": "left",
           "label": "Book"
+        },
+        {
+          "href": "https://github.com/Mahnoor-Ghaffar/ai-native-book",
+          "label": "GitHub",
+          "position": "right"
         }
       ],
       "hideOnScroll": false
@@ -71,9 +86,27 @@ export default {
               "to": "/intro"
             }
           ]
+        },
+        {
+          "title": "Community",
+          "items": [
+            {
+              "label": "GitHub",
+              "href": "https://github.com/Mahnoor-Ghaffar/ai-native-book"
+            }
+          ]
+        },
+        {
+          "title": "Book Author",
+          "items": [
+            {
+              "label": "Mahnoor Ghaffar",
+              "href": "#"
+            }
+          ]
         }
       ],
-      "copyright": "Copyright © 2025 My Project, Inc. Built with Docusaurus."
+      "copyright": "Copyright © 2025 AI Native Book. Built with Docusaurus. Author: Mahnoor Ghaffar"
     },
     "prism": {
       "theme": {

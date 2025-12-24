@@ -1,0 +1,98 @@
+---
+title: "Chapter 3: Nav2 Path Planning for Bipedal Humanoids"
+description: "Explore Navigation2 configuration for bipedal humanoid robots, including behavior trees, costmaps, and recovery behaviors specifically tailored for legged locomotion."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+
+# Chapter 3: Nav2 Path Planning for Bipedal Humanoids
+
+## 1. Epic Overview
+This chapter focuses on configuring the Navigation2 stack specifically for bipedal humanoid robots, addressing the unique challenges of legged locomotion and dynamic balance. Students will learn to configure Nav2 behavior trees, tune costmaps for humanoid kinematics, and implement recovery behaviors for bipedal-specific navigation failures. The chapter covers humanoid-specific plugins, gait-aware path planning, and integration with cloud-based Omniverse for remote navigation, emphasizing Cloud/AWS hardware track for scalable deployment.
+
+## 2. Phased Roadmap
+- Phase 1: Nav2 2.x installation and humanoid-specific setup
+- Phase 2: Behavior tree configuration for bipedal navigation
+- Phase 3: Costmap tuning for humanoid kinematics
+- Phase 4: Recovery behaviors and humanoid-specific plugins
+- Phase 5: Cloud integration and remote navigation
+
+## 3. Architecture Sketch
+- Docusaurus folder: `/docs/module3-nvidia-isaac/` (ch3-nav2.mdx)
+- Nav2BehaviorTree component for interactive behavior visualization
+- Bipedal navigation pipeline diagrams
+- Costmap configuration examples
+- Cloud/AWS Omniverse integration workflows
+
+## 4. Chapter Template Enforcement
+- 11 sections mandatory with Next Actions
+- Hardware track callouts (A: RTX Workstation, B: Jetson/Unitree, C: Cloud/AWS)
+- Glossary terms linked inline with central glossary
+- Explicit sim-to-real warnings with executable code examples
+- 3-5 runnable Nav2 examples per chapter
+
+## 5. Formatting & Code Standards
+- Nav2 YAML configurations with humanoid-specific parameters
+- ROS 2 Jazzy launch files with detailed comments
+- Behavior tree XML definitions for bipedal navigation
+- Costmap plugin configurations
+- Mermaid diagrams for navigation workflows
+- APA references block with ≥50% official sources
+
+## 6. Research Approach
+- Official navigation.ros.org documentation first
+- Nav2 2.x behavior tree and plugin development guides
+- arXiv papers on bipedal navigation and humanoid locomotion
+- NVIDIA Omniverse remote simulation guides
+- Concurrent validation while drafting content
+
+## 7. Key Decisions
+- Base on Nav2 2.x with ROS 2 Jazzy LTS integration
+- Humanoid examples: Generic bipedal + Unitree H1 navigation profiles
+- Full deployable navigation pipelines with humanoid-specific tuning
+- Interlinking to Module 2 (simulation handoff) and Module 4 (VLA integration)
+- Three distinct hardware tracks with specific navigation considerations
+
+## 8. Testing & Validation
+- Docusaurus build validation
+- Code execution in Docker (Ubuntu 22.04 + ROS 2 Jazzy + Nav2 2.x)
+- Navigation performance validation (90% success rate in obstacle avoidance)
+- Accuracy verification against official ROS Navigation Working Group documentation
+- Learning objectives coverage checklist
+- APA citation linting with ≥50% official sources
+- Playwright tests for section visibility and diagram rendering
+
+## 9. Version Strategy
+- Pin Nav2 2.x, ROS 2 Jazzy LTS
+- Note migration paths for future Nav2 updates
+- Maintain changelog for tool version changes
+- Document breaking changes between versions
+
+## 10. Risks & Mitigation
+| Risk | Mitigation |
+|:-----|:-----------|
+| Bipedal-specific navigation complexity | Provide detailed configuration guides, humanoid-specific examples, comprehensive testing procedures |
+| Stability issues with humanoid locomotion planning | Include gait-aware path planning, dynamic balance considerations, recovery behavior examples |
+| Cloud integration challenges for remote navigation | Provide step-by-step cloud setup guides, security best practices, performance optimization techniques |
+| Kinematic constraint violations in path planning | Implement humanoid-specific costmap plugins, collision avoidance strategies, balance maintenance |
+| Maintaining APA citation compliance | Use automated linting tools, provide clear author guidelines |
+| Ensuring executable code quality | Implement CI/CD with Docker-based testing for all examples |
+
+## 11. Timeline Estimate
+- Phase 1 (Installation & Setup): 1 week
+- Phase 2 (Behavior Tree Configuration): 1 week
+- Phase 3 (Costmap Tuning): 1 week
+- Phase 4 (Recovery Behaviors): 1 week
+- Phase 5 (Cloud Integration): 1 week
+- Total: 5 weeks
+
+## 12. Next Actions
+- Complete Nav2 2.x installation guide with humanoid-specific configurations
+- Implement behavior trees for bipedal navigation with gait awareness
+- Create costmap configurations optimized for humanoid kinematics
+- Develop humanoid-specific recovery behaviors and plugins
+- Integrate hardware track callouts for Cloud/AWS Omniverse deployment
+
+<HardwareTrackCallout track="Track C (Cloud/AWS Omniverse)">
+For scalable humanoid navigation with remote simulation capabilities, leverage AWS Omniverse for distributed navigation planning and compute-intensive path planning algorithms that benefit from cloud-based GPU acceleration.
+</HardwareTrackCallout>

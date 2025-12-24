@@ -61,7 +61,36 @@ const sidebars: SidebarsConfig = {
         'module2-digital-twin/ch3-sensors',
       ],
     },
-    // Add other sidebar items here as needed
+    {
+      type: 'category',
+      label: 'Module 3: The AI-Robot Brain (NVIDIA Isaac™)',
+      link: {
+        type: 'generated-index',
+        title: 'Module 3: The AI-Robot Brain (NVIDIA Isaac™)',
+        slug: '/category/module-3-ai-robot-brain',
+        description: 'Explore NVIDIA Isaac ecosystem for advanced robotics simulation, perception, and navigation.',
+      },
+      items: [
+        'module3-nvidia-isaac/ch1-sim',
+        'module3-nvidia-isaac/ch2-perception',
+        'module3-nvidia-isaac/ch3-nav2',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Module 4: Vision-Language-Action (VLA)',
+      link: {
+        type: 'generated-index',
+        title: 'Module 4: Vision-Language-Action (VLA)',
+        slug: '/category/module-4-vla',
+        description: 'Explore Vision-Language-Action integration for autonomous humanoid robots using OpenAI Whisper, LLMs, and VLA models.',
+      },
+      items: [
+        'module4-vla/ch1-voice',
+        'module4-vla/ch2-planning',
+        'module4-vla/ch3-integration',
+      ],
+    },
   ],
 };
 

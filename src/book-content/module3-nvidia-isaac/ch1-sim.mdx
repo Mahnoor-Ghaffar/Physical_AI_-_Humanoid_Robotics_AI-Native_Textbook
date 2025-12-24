@@ -1,0 +1,97 @@
+---
+title: "Chapter 1: Photorealistic Simulation with NVIDIA Isaac Sim"
+description: "Explore NVIDIA Isaac Sim for photorealistic simulation, USD-based scene composition, and synthetic data generation with Omniverse Replicator for humanoid robotics applications."
+---
+
+import HardwareTrackCallout from '@site/src/components/HardwareTrackCallout';
+
+# Chapter 1: Photorealistic Simulation with NVIDIA Isaac Sim
+
+## 1. Epic Overview
+This chapter introduces students to NVIDIA Isaac Sim, a powerful platform for photorealistic simulation in robotics. It covers USD-based scene composition, Omniverse connectivity, and synthetic data generation using Omniverse Replicator. Students will learn to build complex simulation environments for humanoid robots, configure domain randomization parameters, and generate synthetic datasets that bridge the sim-to-real gap. The chapter emphasizes practical applications for humanoid robotics with focus on RTX workstation deployment for high-fidelity simulation.
+
+## 2. Phased Roadmap
+- Phase 1: Isaac Sim installation and basic scene setup
+- Phase 2: USD asset composition and Omniverse integration
+- Phase 3: Omniverse Replicator configuration for synthetic data
+- Phase 4: Domain randomization techniques for sim-to-real transfer
+- Phase 5: Humanoid robot integration and validation
+
+## 3. Architecture Sketch
+- Docusaurus folder: `/docs/module3-nvidia-isaac/` (ch1-sim.mdx)
+- IsaacSimScene component for interactive environment previews
+- USD scene composition workflows
+- Omniverse Replicator pipeline diagrams
+- Synthetic dataset generation examples
+
+## 4. Chapter Template Enforcement
+- 11 sections mandatory with Next Actions
+- Hardware track callouts (A: RTX Workstation, B: Jetson/Unitree, C: Cloud/AWS)
+- Glossary terms linked inline with central glossary
+- Explicit sim-to-real warnings with executable code examples
+- 3-5 runnable OmniGraph/Python examples per chapter
+
+## 5. Formatting & Code Standards
+- USD/USDZ asset definitions with Isaac Sim 2024.2 conventions
+- OmniGraph Python snippets with CUDA optimization notes
+- Isaac ROS GEMs integration examples
+- ROS 2 Jazzy launch files with detailed comments
+- Mermaid diagrams for simulation workflows
+- APA references block with ≥50% official sources
+
+## 6. Research Approach
+- Official developer.nvidia.com/isaac-sim documentation first
+- Isaac ROS developer guides and ROS 2 Jazzy integration docs
+- arXiv papers on VSLAM and humanoid robotics for 2025 updates
+- NVIDIA Omniverse forums and community insights
+- Concurrent validation while drafting content
+
+## 7. Key Decisions
+- Base on Isaac Sim 2024.2+ with Isaac ROS 3.x integration
+- Humanoid examples: Generic bipedal + Unitree H1 integration
+- Full deployable simulation pipelines with synthetic data generation
+- Interlinking to Module 2 (physics handoff) and Module 4 (VLA integration)
+- Three distinct hardware tracks with specific performance considerations
+
+## 8. Testing & Validation
+- Docusaurus build validation
+- Code execution in Docker (Ubuntu 22.04 + ROS 2 Jazzy + Isaac Sim 2024.2)
+- Accuracy verification against official NVIDIA documentation
+- Learning objectives coverage checklist
+- APA citation linting with ≥50% official sources
+- Playwright tests for section visibility and diagram rendering
+
+## 9. Version Strategy
+- Pin Isaac Sim 2024.2+, Isaac ROS 3.x, ROS 2 Jazzy LTS
+- Note migration paths for future Isaac Sim updates
+- Maintain changelog for tool version changes
+- Document breaking changes between versions
+
+## 10. Risks & Mitigation
+| Risk | Mitigation |
+|:-----|:-----------|
+| High GPU requirements for photorealistic simulation | Provide clear RTX 40-series minimum specs, offer cloud-based alternatives (AWS Omniverse), highlight hardware tracks |
+| Rapid Isaac Sim updates breaking examples | Pin specific versions for stability, monitor for critical updates, plan minor revisions |
+| Complex USD scene composition learning curve | Provide step-by-step tutorials, simple-to-complex examples, comprehensive quickstart guides |
+| Sim-to-real gap challenges in humanoid locomotion | Emphasize domain randomization, discuss calibration techniques, provide deployment best practices |
+| Maintaining APA citation compliance | Use automated linting tools, provide clear author guidelines |
+| Ensuring executable code quality | Implement CI/CD with Docker-based testing for all examples |
+
+## 11. Timeline Estimate
+- Phase 1 (Installation & Basic Setup): 1 week
+- Phase 2 (USD Composition & Omniverse): 1 week
+- Phase 3 (Replicator Configuration): 1 week
+- Phase 4 (Domain Randomization): 1 week
+- Phase 5 (Humanoid Integration): 1 week
+- Total: 5 weeks
+
+## 12. Next Actions
+- Complete Isaac Sim 2024.2 installation guide for RTX workstation
+- Create basic USD scene with humanoid robot model
+- Implement Omniverse Replicator pipeline for synthetic dataset generation
+- Develop domain randomization examples with performance benchmarks
+- Integrate hardware track callouts for RTX workstation optimization
+
+<HardwareTrackCallout track="Track A (RTX Workstation)">
+For photorealistic simulation with Isaac Sim, RTX 40-series GPUs provide optimal performance for real-time rendering and synthetic data generation. Ensure at least 24GB VRAM for complex humanoid simulation environments with high-fidelity lighting and materials.
+</HardwareTrackCallout>

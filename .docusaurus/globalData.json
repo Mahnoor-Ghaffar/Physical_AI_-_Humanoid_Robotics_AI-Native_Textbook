@@ -50,6 +50,36 @@
               "sidebar": "tutorialSidebar"
             },
             {
+              "id": "module3-nvidia-isaac/ch1-sim",
+              "path": "/module3-nvidia-isaac/ch1-sim",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch2-perception",
+              "path": "/module3-nvidia-isaac/ch2-perception",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module3-nvidia-isaac/ch3-nav2",
+              "path": "/module3-nvidia-isaac/ch3-nav2",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla/ch1-voice",
+              "path": "/module4-vla/ch1-voice",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla/ch2-planning",
+              "path": "/module4-vla/ch2-planning",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "module4-vla/ch3-integration",
+              "path": "/module4-vla/ch3-integration",
+              "sidebar": "tutorialSidebar"
+            },
+            {
               "id": "/category/chapter-1-getting-started",
               "path": "/category/chapter-1-getting-started",
               "sidebar": "tutorialSidebar"
@@ -72,6 +102,16 @@
             {
               "id": "/category/module-2-digital-twin",
               "path": "/category/module-2-digital-twin",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/module-3-ai-robot-brain",
+              "path": "/category/module-3-ai-robot-brain",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "/category/module-4-vla",
+              "path": "/category/module-4-vla",
               "sidebar": "tutorialSidebar"
             }
           ],

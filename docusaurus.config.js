@@ -4,9 +4,9 @@
 const config = {
   title: 'Physical AI & Humanoid Robotics Textbook',
   tagline: 'A comprehensive guide generated and evolved with AI assistance.',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.png',
 
-  url: process.env.VERCEL_URL ? `https://$\{process.env.VERCEL_URL}` : 'https://Mahnoor-Ghaffar.github.io',
+  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://Mahnoor-Ghaffar.github.io',
   baseUrl: '/',
   organizationName: 'Mahnoor-Ghaffar', // Usually your GitHub org/user name.
   projectName: 'ai-native-book', // Usually your repo name.
@@ -18,7 +18,17 @@ const config = {
 
   i18n: {
     defaultLocale: 'en',
-    locales: ['en'],
+    locales: ['en', 'ur'],
+    localeConfigs: {
+      en: {
+        label: 'English',
+        direction: 'ltr',
+      },
+      ur: {
+        label: 'Urdu',
+        direction: 'rtl',
+      },
+    },
   },
 
   presets: [
@@ -42,7 +52,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/logo.png',
       colorMode: {
         respectPrefersColorScheme: true,
         defaultMode: 'light',
@@ -90,16 +100,16 @@ const config = {
             ],
           },
           {
-            title: 'More',
+            title: 'Book Author',
             items: [
               {
-                label: 'Docusaurus',
-                href: 'https://docusaurus.io/',
+                label: 'Mahnoor Ghaffar',
+                href: '#',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} AI Native Book. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} AI Native Book. Built with Docusaurus. Author: Mahnoor Ghaffar`,
       },
       prism: {
         theme: {

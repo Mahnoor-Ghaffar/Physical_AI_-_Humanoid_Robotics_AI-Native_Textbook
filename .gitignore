@@ -4,3 +4,4 @@ node_modules
 build
 .cache-loader
 .DS_Store
+gazebo_module
