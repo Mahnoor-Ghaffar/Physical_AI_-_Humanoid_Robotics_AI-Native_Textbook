@@ -73,7 +73,7 @@ const CoreTopicsSection = () => {
           {topic: 'Computer Vision', link: '/module3-nvidia-isaac/ch2-perception'},
           {topic: 'Sensor Fusion', link: '/module2-digital-twin/ch3-sensors'},
           {topic: 'Control Systems', link: '/chapter3'},
-          {topic: 'Humanoid Control', link: '/module4-vla'},
+          {topic: 'Humanoid Control', link: '/module4-vla/ch1-voice'},
           {topic: 'Simulation & Digital Twins', link: '/category/module-2-digital-twin'},
         ].map((item, i) => (
           <Link to={item.link} key={item.topic}>
@@ -101,7 +101,7 @@ const AdvancedTopicsSection = () => {
             title: 'Reinforcement Learning',
             description: 'Train robots using advanced RL algorithms for complex tasks.',
             icon: '🧠',
-            link: '/module4-vla'
+            link: '/module4-vla/ch1-voice'
           },
           {
             title: 'AI Planning & Reasoning',

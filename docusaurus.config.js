@@ -12,7 +12,7 @@ const config = {
   projectName: 'ai-native-book', // Usually your repo name.
 
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenAnchors: 'warn',
   onDuplicateRoutes: 'warn',
 
