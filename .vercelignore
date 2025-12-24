@@ -1,0 +1,6 @@
+# .vercelignore
+# Ignore Python-related files during web deployment
+requirements.txt
+requirements-web.txt
+src/simulation/
+src/cli/
