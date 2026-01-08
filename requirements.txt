@@ -1,4 +1,5 @@
 # Isaac AI-Robot Brain Module Requirements
+# AI Agent with Retrieval-Augmented Capabilities
 
 # Core Python dependencies
 numpy>=1.21.0
@@ -16,6 +17,20 @@ nav_msgs
 # Isaac ROS packages
 isaac_ros_visual_slam
 isaac_ros_stereo_image_rectification
+
+# AI Agent dependencies
+openai>=1.0.0
+openai-agents>=0.2.0
+qdrant-client>=1.7.0
+pydantic>=2.0.0
+requests>=2.30.0
+httpx>=0.25.0
+
+# FastAPI server dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+slowapi>=0.1.5
 
 # Testing
 pytest>=7.0.0

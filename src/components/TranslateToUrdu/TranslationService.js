@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
+import { getEnvVar } from '../../utils/env';
 
 // Translation service using Gemini API for real-time translation
 class TranslationService {
   constructor() {
     this.translationCache = new Map();
     this.activeRequests = new Map();
-    this.apiKey = process.env.REACT_APP_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+    this.apiKey = getEnvVar('REACT_APP_GEMINI_API_KEY') || getEnvVar('GEMINI_API_KEY');
   }
 
   // Translation function using Gemini API

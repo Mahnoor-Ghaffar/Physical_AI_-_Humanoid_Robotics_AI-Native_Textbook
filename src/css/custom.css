@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
+  /* Dark theme variables (current theme) */
   --main-background: #0B0F14;
   --secondary-background: #0F172A;
   --card-background: #111827;
@@ -18,6 +19,7 @@
   --font-family-headings: 'Space Grotesk', sans-serif;
   --font-family-body: 'Inter', sans-serif;
 }
+
 
 body {
   background-color: var(--main-background);
@@ -104,7 +106,7 @@ h1, h2, h3, h4, h5, h6 {
 .hero-image {
   width: 100%;
   max-width: 100%;
-  height: full;
+  height: auto;
   border-radius: 16px;
   box-shadow:
     0 10px 30px rgba(34, 211, 238, 0.3),
@@ -884,9 +886,30 @@ h1, h2, h3, h4, h5, h6 {
   height: 100%;
 }
 
-/* Section wrapper for overlays */
-.section-wrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* Theme Toggle Button */
+.theme-toggle {
+  display: flex;
+  align-items: center;
 }
+
+.theme-toggle-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid var(--borders-dividers);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.875rem;
+  color: var(--primary-text);
+  transition: all 0.3s ease;
+  min-height: 36px;
+}
+
+.theme-toggle-button:hover {
+  background-color: rgba(34, 211, 238, 0.1);
+  border-color: var(--primary-accent);
+  color: var(--primary-accent);
+}
+

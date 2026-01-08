@@ -33,7 +33,9 @@ const HomePage = () => {
   );
 };
 
- 
+// Define missing components that are used in HomePage
+
+
 
 const FeaturesSection = () => {
   return (
@@ -144,9 +146,9 @@ const AdvancedTopicsSection = () => {
   );
 };
 
-import HumanoidNavigation from '@site/src/img/homepage/cards/humanoid-robot-navigation.png';
-import RoboticManipulation from '@site/src/img/homepage/cards/robotic-arm-manipulation.png';
-import AIPerception from '@site/src/img/homepage/cards/AI-computer-vision-perception.png';
+import HumanoidNavigation from '@site/static/img/homepage/cards/humanoid-robot-navigation.png';
+import RoboticManipulation from '@site/static/img/homepage/cards/robotic-arm-manipulation.png';
+import AIPerception from '@site/static/img/homepage/cards/AI-computer-vision-perception.png';
 
 const RealWorldApplicationsSection = () => {
   return (

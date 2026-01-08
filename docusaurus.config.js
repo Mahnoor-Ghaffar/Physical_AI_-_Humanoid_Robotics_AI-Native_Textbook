@@ -6,7 +6,7 @@ const config = {
   tagline: 'A comprehensive guide generated and evolved with AI assistance.',
   favicon: 'img/logo.png',
 
-  url: process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'https://Mahnoor-Ghaffar.github.io',
+  url: 'https://ai-native-book.vercel.app', // Updated for Vercel deployment
   baseUrl: '/',
   organizationName: 'Mahnoor-Ghaffar', // Usually your GitHub org/user name.
   projectName: 'ai-native-book', // Usually your repo name.
@@ -49,14 +49,16 @@ const config = {
     ],
   ],
 
+
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       image: 'img/logo.png',
       colorMode: {
-        respectPrefersColorScheme: true,
-        defaultMode: 'light',
-        disableSwitch: false,
+        respectPrefersColorScheme: false, // Keep dark theme as default
+        defaultMode: 'dark', // Set dark as default theme
+        disableSwitch: true, // Disable theme switching
       },
       navbar: {
         title: 'AI/Spec-Driven Book',
