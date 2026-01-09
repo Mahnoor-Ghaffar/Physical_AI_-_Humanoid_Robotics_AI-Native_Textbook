@@ -14,7 +14,7 @@
       "calendar": "gregory",
       "path": "en",
       "translate": false,
-      "url": "https://Mahnoor-Ghaffar.github.io",
+      "url": "https://ai-native-book.vercel.app",
       "baseUrl": "/"
     },
     "ur": {
@@ -24,7 +24,7 @@
       "calendar": "gregory",
       "path": "ur",
       "translate": false,
-      "url": "https://Mahnoor-Ghaffar.github.io",
+      "url": "https://ai-native-book.vercel.app",
       "baseUrl": "/ur/"
     }
   }

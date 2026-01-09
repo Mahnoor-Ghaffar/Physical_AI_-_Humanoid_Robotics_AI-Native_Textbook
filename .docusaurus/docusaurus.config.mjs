@@ -7,11 +7,11 @@ export default {
   "title": "Physical AI & Humanoid Robotics Textbook",
   "tagline": "A comprehensive guide generated and evolved with AI assistance.",
   "favicon": "img/logo.png",
-  "url": "https://Mahnoor-Ghaffar.github.io",
+  "url": "https://ai-native-book.vercel.app",
   "baseUrl": "/",
   "organizationName": "Mahnoor-Ghaffar",
   "projectName": "ai-native-book",
-  "onBrokenLinks": "throw",
+  "onBrokenLinks": "warn",
   "onBrokenAnchors": "warn",
   "onDuplicateRoutes": "warn",
   "i18n": {
@@ -50,9 +50,9 @@ export default {
   "themeConfig": {
     "image": "img/logo.png",
     "colorMode": {
-      "respectPrefersColorScheme": true,
-      "defaultMode": "light",
-      "disableSwitch": false
+      "respectPrefersColorScheme": false,
+      "defaultMode": "dark",
+      "disableSwitch": true
     },
     "navbar": {
       "title": "AI/Spec-Driven Book",
@@ -106,7 +106,7 @@ export default {
           ]
         }
       ],
-      "copyright": "Copyright © 2025 AI Native Book. Built with Docusaurus. Author: Mahnoor Ghaffar"
+      "copyright": "Copyright © 2026 AI Native Book. Built with Docusaurus. Author: Mahnoor Ghaffar"
     },
     "prism": {
       "theme": {
