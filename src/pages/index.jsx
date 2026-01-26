@@ -6,6 +6,10 @@ import Logo from '../components/Homepage/Logo';
 import HeroSection from '../components/HeroSection';
 import StatusSection from '../components/StatusSection';
 import BackgroundOverlays from '../components/BackgroundOverlays';
+import HumanoidNavigation from '@site/static/img/homepage/cards/humanoid-robot-navigation.png';
+import RoboticManipulation from '@site/static/img/homepage/cards/robotic-arm-manipulation.png';
+import AIPerception from '@site/static/img/homepage/cards/AI-computer-vision-perception.png';
+
 
 const Section = ({ children, title, className }) => (
   <section className={`section ${className}`}>
@@ -146,9 +150,6 @@ const AdvancedTopicsSection = () => {
   );
 };
 
-import HumanoidNavigation from '@site/static/img/homepage/cards/humanoid-robot-navigation.png';
-import RoboticManipulation from '@site/static/img/homepage/cards/robotic-arm-manipulation.png';
-import AIPerception from '@site/static/img/homepage/cards/AI-computer-vision-perception.png';
 
 const RealWorldApplicationsSection = () => {
   return (

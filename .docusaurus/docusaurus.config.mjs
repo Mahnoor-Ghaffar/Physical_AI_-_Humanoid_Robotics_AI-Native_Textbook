@@ -387,6 +387,14 @@ export default {
       }
     }
   },
+  "plugins": [
+    "./src/plugins/floating-chat-plugin"
+  ],
+  "themes": [],
+  "scripts": [],
+  "headTags": [],
+  "stylesheets": [],
+  "clientModules": [],
   "baseUrlIssueBanner": true,
   "future": {
     "v4": {
@@ -413,12 +421,6 @@ export default {
     "static"
   ],
   "customFields": {},
-  "plugins": [],
-  "themes": [],
-  "scripts": [],
-  "headTags": [],
-  "stylesheets": [],
-  "clientModules": [],
   "titleDelimiter": "|",
   "noIndex": false,
   "markdown": {

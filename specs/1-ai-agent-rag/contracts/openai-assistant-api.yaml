@@ -1,0 +1,159 @@
+openapi: 3.0.0
+info:
+  title: OpenAI Assistant API Contract for RAG Agent
+  version: 1.0.0
+  description: API contract for the RAG agent that integrates with OpenAI Assistant API
+
+paths:
+  /v1/assistants:
+    post:
+      summary: Create a new RAG agent assistant
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                  description: The OpenAI model to use for the assistant
+                  example: "gpt-4-turbo-preview"
+                name:
+                  type: string
+                  description: Name of the assistant
+                  example: "Book Content RAG Agent"
+                instructions:
+                  type: string
+                  description: System instructions for the assistant
+                  example: "You are a helpful assistant that answers questions using only the information retrieved from book content. Do not use any knowledge outside of what is provided in the retrieved documents."
+                tools:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        type: string
+                        enum: ["function"]
+                      function:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                            description: Name of the retrieval function
+                            example: "perform_retrieval"
+                          description:
+                            type: string
+                            description: Description of what the function does
+                            example: "Retrieve relevant book content based on the query"
+                          parameters:
+                            type: object
+                            properties:
+                              type:
+                                type: string
+                                enum: ["object"]
+                              properties:
+                                query:
+                                  type: string
+                                  description: The search query text
+                                top_k:
+                                  type: integer
+                                  description: Number of results to retrieve
+                                  default: 5
+                              required:
+                                - query
+      responses:
+        '200':
+          description: Assistant created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the created assistant
+                  object:
+                    type: string
+                    description: Object type
+                  created_at:
+                    type: integer
+                    description: Unix timestamp of creation
+
+  /v1/threads:
+    post:
+      summary: Create a new conversation thread
+      responses:
+        '200':
+          description: Thread created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the created thread
+                  object:
+                    type: string
+                    description: Object type
+
+  /v1/threads/{thread_id}/messages:
+    post:
+      summary: Add a message to a thread
+      parameters:
+        - name: thread_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                role:
+                  type: string
+                  enum: ["user"]
+                content:
+                  type: string
+                  description: User's message/query
+      responses:
+        '200':
+          description: Message added successfully
+
+  /v1/threads/{thread_id}/runs:
+    post:
+      summary: Run the assistant on a thread
+      parameters:
+        - name: thread_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                assistant_id:
+                  type: string
+                  description: ID of the assistant to run
+      responses:
+        '200':
+          description: Run created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: ID of the run
+                  status:
+                    type: string
+                    enum: ["queued", "in_progress", "completed", "requires_action"]

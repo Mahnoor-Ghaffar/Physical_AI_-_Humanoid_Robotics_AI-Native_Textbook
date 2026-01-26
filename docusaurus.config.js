@@ -1,5 +1,5 @@
-// @ts-check
-// @type {import('@docusaurus/types').Config}
+﻿// @ts-check
+/** @type {import('@docusaurus/types').Config} */
 
 const config = {
   title: 'Physical AI & Humanoid Robotics Textbook',
@@ -319,6 +319,17 @@ const config = {
         maxHeadingLevel: 3,
       },
     }),
-};
+
+    plugins: [
+      './src/plugins/floating-chat-plugin'
+    ],
+
+    themes: [],
+    scripts: [],
+    headTags: [],
+    stylesheets: [],
+    clientModules: [],
+
+  };
 
 module.exports = config;

@@ -4,34 +4,27 @@ Handles text embedding generation for retrieval-augmented generation
 """
 from typing import List
 import numpy as np
-from transformers import AutoTokenizer, AutoModel
-import torch
+import hashlib
 
 
 class EmbeddingGenerator:
     """
-    Generates embeddings for text using pre-trained models
+    Generates mock embeddings for text (for testing purposes)
+    In a real implementation, this would use a proper embedding model
     """
-    def __init__(self, model_name: str = "sentence-transformers/all-MiniLM-L6-v2"):
+    def __init__(self, model_name: str = "mock-embedding-model"):
         """
         Initialize the embedding generator
 
         Args:
-            model_name: Name of the pre-trained model to use
+            model_name: Name of the model (just for identification)
         """
         self.model_name = model_name
-        try:
-            self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-            self.model = AutoModel.from_pretrained(model_name)
-        except Exception as e:
-            print(f"Warning: Could not load {model_name}. Using mock embeddings.")
-            print(f"Error: {e}")
-            self.tokenizer = None
-            self.model = None
+        print(f"Initialized mock embedding generator: {model_name}")
 
     def encode(self, texts: List[str]) -> List[np.ndarray]:
         """
-        Generate embeddings for a list of texts
+        Generate mock embeddings for a list of texts
 
         Args:
             texts: List of texts to encode
@@ -39,19 +32,25 @@ class EmbeddingGenerator:
         Returns:
             List of embedding vectors
         """
-        if self.model is None or self.tokenizer is None:
-            # Return mock embeddings if model couldn't be loaded
-            return [np.random.rand(384).astype(np.float32) for _ in texts]
-
         embeddings = []
         for text in texts:
-            inputs = self.tokenizer(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+            # Create a deterministic mock embedding based on the text hash
+            text_hash = hashlib.sha256(text.encode()).hexdigest()
 
-            with torch.no_grad():
-                outputs = self.model(**inputs)
-                # Use mean pooling to get sentence embedding
-                embedding = outputs.last_hidden_state.mean(dim=1).squeeze()
-                embeddings.append(embedding.numpy().astype(np.float32))
+            # Convert hex to numbers and create a vector
+            vector = []
+            for i in range(0, len(text_hash), 2):
+                byte_val = int(text_hash[i:i+2], 16)
+                normalized_val = (byte_val / 255.0) * 2 - 1  # Normalize to [-1, 1]
+                vector.append(normalized_val)
+
+            # Ensure consistent size (truncate or pad to 384 dimensions)
+            if len(vector) > 384:
+                vector = vector[:384]
+            else:
+                vector.extend([0.0] * (384 - len(vector)))
+
+            embeddings.append(np.array(vector, dtype=np.float32))
 
         return embeddings
 

@@ -38,6 +38,11 @@ export default [
     exact: true
   },
   {
+    path: '/chat',
+    component: ComponentCreator('/chat', 'aac'),
+    exact: true
+  },
+  {
     path: '/',
     component: ComponentCreator('/', '070'),
     exact: true

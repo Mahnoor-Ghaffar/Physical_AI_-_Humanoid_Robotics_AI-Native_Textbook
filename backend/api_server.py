@@ -8,8 +8,11 @@ from pydantic import BaseModel
 from typing import List, Dict, Optional
 import asyncio
 import logging
-from .retrieve import get_document_retriever
-from .embedding_generator import get_embedding_generator
+import sys
+import os
+sys.path.append(os.path.dirname(__file__))
+from document_retriever import get_document_retriever
+from embedding_generator import get_embedding_generator
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)

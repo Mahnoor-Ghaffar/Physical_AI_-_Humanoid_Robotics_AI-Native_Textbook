@@ -42,12 +42,19 @@
       "plugin": "plugin---docusaurus-debugb-38-ad3"
     }
   },
+  "/chat-aac": {
+    "__comp": "__comp---site-src-pages-chat-jsxce-5-ee2",
+    "__context": {
+      "plugin": "plugin---chata-74-e74"
+    },
+    "config": "config---chat-5-e-9-b86"
+  },
   "/-070": {
     "__comp": "__comp---site-src-pages-index-jsx-9-dd-cb1",
     "__context": {
-      "plugin": "plugin---a-74-9d6"
+      "plugin": "plugin---chata-74-e74"
     },
-    "config": "config---5-e-9-4f3"
+    "config": "config---chat-5-e-9-b86"
   },
   "/-24c": {
     "__comp": "__comp---theme-docs-root-5-e-9-0b6",
