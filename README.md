@@ -1,5 +1,7 @@
 # AI Native Book - AI Agent with Retrieval-Augmented Capabilities
 
+**⚠️ IMPORTANT NOTICE: I am facing some issues in this GitHub repository, so I have attached another repository of "Hackathon One" where I have the complete hackathon project. Please check this. https://github.com/Mahnoor-Ghaffar/Mahnoor-Ghaffar-AI_Driven_dev_Hackathon_001.git ⚠️**
+
 This project implements an AI agent using the OpenAI Assistant API that integrates with a Retrieval-Augmented Generation (RAG) system to answer questions based on book content stored in a Qdrant vector database.
 
 ## Features
